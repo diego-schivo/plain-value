@@ -1,6 +1,8 @@
 'use strict';
 
 const { Component, h, render } = window.preact;
+const { htm } = window.htm;
+const html = htm.bind(h);
 
 
 /** Example classful component */
@@ -9,15 +11,20 @@ class App extends Component {
 		this.setState({ message:'Hello!' });
 	}
 	render(props, state) {
+		/*
 		return (
 			h('div', {id:'app'},
 				h(Header, { message: state.message }),
 				h(Main)
 			)
 		);
+		*/
+		return html`<div id="app">
+			<${Header} message=${this.state.message}><//>
+			<${Main}><//>
+		</div>`;
 	}
 }
-
 
 /** Components can just be pure functions */
 const Header = (props) => {
