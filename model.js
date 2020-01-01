@@ -6,6 +6,7 @@ class TodoModel {
 		firestore.collection(key).get()
 			.then(querySnapshot => {
 				this.todos = querySnapshot.docs;
+				this.inform();
 			})
 			.catch(function(error) {
 				console.log("Error getting documents: ", error);
