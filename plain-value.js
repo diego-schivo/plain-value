@@ -10,7 +10,7 @@ class App extends Component {
 		console.log(1, this);
 
 		var docRef = firestore.collection("users").doc("iN50PPzc8PkmAkWSG8X4");
-		docRef.get().then(function(doc) {
+		docRef.get().then(doc => {
 			 console.log(2, this);
 			 if (doc.exists) {
 				  console.log("Document data:", doc.data());
