@@ -49,7 +49,7 @@ class Main extends Component {
 	render() {
 		const items = [1,2,3,4,5].map( (item) => (
 			// h('li', {id:item}, 'Item '+item)
-			html`<li id="${item}">Item ${item}>/li>`
+			html`<li id="${item}">Item ${item}</li>`
 		));
 		/*
 		return (
