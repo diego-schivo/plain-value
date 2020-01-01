@@ -27,10 +27,16 @@ class App extends Component {
 
 /** Components can just be pure functions */
 const Header = (props) => {
+	/*
 	return h('header', null,
 		h('h1', null, 'App'),
 		props.message && h('h2', null, props.message)
 	);
+	*/
+	return html`<header>
+		<h1>App</h1>
+		<h2>${this.props.message}</h2>
+	</header>`;
 };
 
 
@@ -38,13 +44,17 @@ const Header = (props) => {
 class Main extends Component {
 	render() {
 		const items = [1,2,3,4,5].map( (item) => (
-			h('li', {id:item}, 'Item '+item)
+			// h('li', {id:item}, 'Item '+item)
+			html`<li id="${item}">Item ${item}>/li>`
 		));
+		/*
 		return (
 			h('main', null,
 				h('ul', null, items)
 			)
 		);
+		*/
+		return html`<main>${html`<ul>${items}</ul>`}</main>`
 	}
 }
 
