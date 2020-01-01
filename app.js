@@ -86,7 +86,7 @@ class App extends Component {
 	}
 
 	render({ }, { nowShowing=ALL_TODOS, newTodo, editing }) {
-		let { todos } = this.model,
+		let todos = this.model.todos || [],
 			shownTodos = todos.filter( FILTERS[nowShowing] ),
 			activeTodoCount = todos.reduce( (a, todo) => a + (todo.get('completed') ? 0 : 1), 0),
 			completedCount = todos.length - activeTodoCount;
