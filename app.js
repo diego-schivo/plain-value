@@ -16,7 +16,19 @@ class App extends Component {
 	constructor() {
 		super();
 		this.model = new TodoModel('preact-todos', () => this.setState({}) );
-		addEventListener('hashchange', this.handleRoute.bind(this));
+
+		this.handleRoute = this.handleRoute.bind(this);
+		this.handleNewTodoKeyDown = this.handleNewTodoKeyDown.bind(this);
+		this.handleNewTodoInput = this.handleNewTodoInput.bind(this);
+		this.toggleAll = this.toggleAll.bind(this);
+		this.toggle = this.toggle.bind(this);
+		this.destroy = this.destroy.bind(this);
+		this.edit = this.edit.bind(this);
+		this.save = this.save.bind(this);
+		this.cancel = this.cancel.bind(this);
+		this.clearCompleted = this.clearCompleted.bind(this);
+
+		addEventListener('hashchange', this.handleRoute);
 		this.handleRoute();
 	}
 

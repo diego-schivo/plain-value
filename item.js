@@ -1,6 +1,17 @@
 'use strict';
 
 class TodoItem extends Component {
+	constructor() {
+		super();
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleEdit = this.handleEdit.bind(this);
+		this.toggle = this.toggle.bind(this);
+		this.handleTextInput = this.handleTextInput.bind(this);
+		this.handleKeyDown = this.handleKeyDown.bind(this);
+		this.handleDestroy = this.handleDestroy.bind(this);
+	}
+
 	handleSubmit() {
 		let { onSave, onDestroy, todo } = this.props,
 			val = this.state.editText.trim();
@@ -43,14 +54,6 @@ class TodoItem extends Component {
 	handleDestroy() {
 		this.props.onDestroy(this.props.todo);
 	}
-
-	// shouldComponentUpdate({ todo, editing, editText }) {
-	// 	return (
-	// 		todo !== this.props.todo ||
-	// 		editing !== this.props.editing ||
-	// 		editText !== this.state.editText
-	// 	);
-	// }
 
 	componentDidUpdate() {
 		let node = this.base && this.base.querySelector('.edit');
