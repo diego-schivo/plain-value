@@ -1,8 +1,5 @@
 'use strict';
 
-const ESCAPE_KEY = 27;
-const ENTER_KEY = 13;
-
 class TodoItem extends Component {
 	handleSubmit() {
 		let { onSave, onDestroy, todo } = this.props,
