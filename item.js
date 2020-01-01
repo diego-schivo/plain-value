@@ -4,7 +4,7 @@ const ESCAPE_KEY = 27;
 const ENTER_KEY = 13;
 
 class TodoItem extends Component {
-	handleSubmit = () => {
+	handleSubmit() {
 		let { onSave, onDestroy, todo } = this.props,
 			val = this.state.editText.trim();
 		if (val) {
@@ -16,23 +16,23 @@ class TodoItem extends Component {
 		}
 	};
 
-	handleEdit = () => {
+	handleEdit() {
 		let { onEdit, todo } = this.props;
 		onEdit(todo);
 		this.setState({ editText: todo.title });
 	};
 
-	toggle = e => {
+	toggle(e) {
 		let { onToggle, todo } = this.props;
 		onToggle(todo);
 		e.preventDefault();
 	};
 
-	handleTextInput = e => {
+	handleTextInput(e) {
 		this.setState({ editText: e.target.value });
 	};
 
-	handleKeyDown = e => {
+	handleKeyDown(e) {
 		if (e.which===ESCAPE_KEY) {
 			let { todo } = this.props;
 			this.setState({ editText: todo.title });
@@ -43,7 +43,7 @@ class TodoItem extends Component {
 		}
 	};
 	
-	handleDestroy = () => {
+	handleDestroy() {
 		this.props.onDestroy(this.props.todo);
 	};
 

@@ -27,7 +27,7 @@ class App extends Component {
 		this.setState({ nowShowing });
 	}
 
-	handleNewTodoKeyDown = e => {
+	handleNewTodoKeyDown(e) {
 		if (e.keyCode!==ENTER_KEY) return;
 		e.preventDefault();
 
@@ -38,37 +38,37 @@ class App extends Component {
 		}
 	};
 
-	handleNewTodoInput = e => {
+	handleNewTodoInput(e) {
 		this.setState({ newTodo: e.target.value });
 	};
 
-	toggleAll = event => {
+	toggleAll(event) {
 		let checked = event.target.checked;
 		this.model.toggleAll(checked);
 	};
 
-	toggle = todo => {
+	toggle(todo) {
 		this.model.toggle(todo);
 	};
 
-	destroy = todo => {
+	destroy(todo) {
 		this.model.destroy(todo);
 	};
 
-	edit = todo => {
+	edit(todo) {
 		this.setState({ editing: todo.id });
 	};
 
-	save = (todoToSave, text) => {
+	save(todoToSave, text) {
 		this.model.save(todoToSave, text);
 		this.setState({ editing: null });
 	};
 
-	cancel = () => {
+	cancel() {
 		this.setState({ editing: null });
 	};
 
-	clearCompleted = () => {
+	clearCompleted() {
 		this.model.clearCompleted();
 	};
 
