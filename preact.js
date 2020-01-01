@@ -18,10 +18,12 @@ class App extends Component {
 			)
 		);
 		*/
-		return html`<div id="app">
-			<${Header} message=${this.state.message}><//>
-			<${Main}><//>
-		</div>`;
+		return html`
+			<div id="app">
+				<${Header} message=${state.message}><//>
+				<${Main}><//>
+			</div>
+		`;
 	}
 }
 
@@ -33,10 +35,12 @@ const Header = (props) => {
 		props.message && h('h2', null, props.message)
 	);
 	*/
-	return html`<header>
-		<h1>App</h1>
-		<h2>${this.props.message}</h2>
-	</header>`;
+	return html`
+		<header>
+			<h1>App</h1>
+			<h2>${props.message}</h2>
+		</header>
+	`;
 };
 
 
@@ -54,7 +58,11 @@ class Main extends Component {
 			)
 		);
 		*/
-		return html`<main>${html`<ul>${items}</ul>`}</main>`
+		return html`
+			<main>
+				${html`<ul>${items}</ul>`}
+			</main>
+		`;
 	}
 }
 
