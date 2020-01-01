@@ -11,23 +11,23 @@ class TodoItem extends Component {
 		else {
 			onDestroy(todo);
 		}
-	};
+	}
 
 	handleEdit() {
 		let { onEdit, todo } = this.props;
 		onEdit(todo);
 		this.setState({ editText: todo.title });
-	};
+	}
 
 	toggle(e) {
 		let { onToggle, todo } = this.props;
 		onToggle(todo);
 		e.preventDefault();
-	};
+	}
 
 	handleTextInput(e) {
 		this.setState({ editText: e.target.value });
-	};
+	}
 
 	handleKeyDown(e) {
 		if (e.which===ESCAPE_KEY) {
@@ -38,11 +38,11 @@ class TodoItem extends Component {
 		else if (e.which===ENTER_KEY) {
 			this.handleSubmit();
 		}
-	};
+	}
 	
 	handleDestroy() {
 		this.props.onDestroy(this.props.todo);
-	};
+	}
 
 	// shouldComponentUpdate({ todo, editing, editText }) {
 	// 	return (

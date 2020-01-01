@@ -1,17 +1,5 @@
 'use strict';
 
-const { Component, h, render } = window.preact;
-const html = window.htm.bind(h);
-
-const ENTER_KEY = 13;
-const ESCAPE_KEY = 27;
-
-const FILTERS = {
-	all: todo => true,
-	active: todo => !todo.completed,
-	completed: todo => todo.completed
-};
-
 class App extends Component {
 	constructor() {
 		super();
@@ -37,41 +25,41 @@ class App extends Component {
 			this.model.addTodo(val);
 			this.setState({ newTodo: '' });
 		}
-	};
+	}
 
 	handleNewTodoInput(e) {
 		this.setState({ newTodo: e.target.value });
-	};
+	}
 
 	toggleAll(event) {
 		let checked = event.target.checked;
 		this.model.toggleAll(checked);
-	};
+	}
 
 	toggle(todo) {
 		this.model.toggle(todo);
-	};
+	}
 
 	destroy(todo) {
 		this.model.destroy(todo);
-	};
+	}
 
 	edit(todo) {
 		this.setState({ editing: todo.id });
-	};
+	}
 
 	save(todoToSave, text) {
 		this.model.save(todoToSave, text);
 		this.setState({ editing: null });
-	};
+	}
 
 	cancel() {
 		this.setState({ editing: null });
-	};
+	}
 
 	clearCompleted() {
 		this.model.clearCompleted();
-	};
+	}
 
 	render({ }, { nowShowing=ALL_TODOS, newTodo, editing }) {
 		let { todos } = this.model,
@@ -131,3 +119,5 @@ class App extends Component {
 		`;
 	}
 }
+
+render(h(App), document.querySelector('.todoapp'));
