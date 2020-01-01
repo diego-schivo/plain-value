@@ -1,8 +1,7 @@
 'use strict';
 
 const { Component, h, render } = window.preact;
-const { htm } = window.htm;
-const html = htm.bind(h);
+const html = window.htm.bind(h);
 
 
 /** Example classful component */
