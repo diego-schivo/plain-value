@@ -3,7 +3,6 @@
 const { Component, h, render } = window.preact;
 const html = window.htm.bind(h);
 
-
 class App extends Component {
 	componentDidMount() {
 		this.setState({ message:'Hello!' });
