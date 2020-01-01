@@ -3,21 +3,31 @@
 class TodoModel {
 	constructor(key, sub) {
 		this.key = key;
-		this.todos = store(key) || [];
+		firestore.collection(key).get()
+			.then(querySnapshot => {
+				this.todos = querySnapshot.docs;
+			})
+			.catch(function(error) {
+				console.log("Error getting documents: ", error);
+			});
 		this.onChanges = [sub];
 	}
 
 	inform() {
-		store(this.key, this.todos);
 		this.onChanges.forEach( cb => cb() );
 	}
 
 	addTodo(title) {
-		this.todos = this.todos.concat({
-			id: uuid(),
-			title,
-			completed: false
-		});
+		firestore.collection(this.key)
+			.add({
+				title,
+				completed: false
+			}).then(doc => {
+				this.todos = this.todos.concat(doc);
+			})
+			.catch(function(error) {
+				console.log("Error adding document: ", error);
+			});
 		this.inform();
 	}
 

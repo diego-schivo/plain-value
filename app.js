@@ -8,8 +8,8 @@ const ESCAPE_KEY = 27;
 
 const FILTERS = {
 	all: todo => true,
-	active: todo => !todo.completed,
-	completed: todo => todo.completed
+	active: todo => !todo.get('completed'),
+	completed: todo => todo.get('completed')
 };
 
 class App extends Component {
@@ -88,7 +88,7 @@ class App extends Component {
 	render({ }, { nowShowing=ALL_TODOS, newTodo, editing }) {
 		let { todos } = this.model,
 			shownTodos = todos.filter( FILTERS[nowShowing] ),
-			activeTodoCount = todos.reduce( (a, todo) => a + (todo.completed ? 0 : 1), 0),
+			activeTodoCount = todos.reduce( (a, todo) => a + (todo.get('completed') ? 0 : 1), 0),
 			completedCount = todos.length - activeTodoCount;
 
 		return html`
@@ -118,7 +118,7 @@ class App extends Component {
 						<ul class="todo-list">
 							${ shownTodos.map( todo => html`
 								<${TodoItem}
-									todo=${todo}
+									todo=${todo.data()}
 									onToggle=${this.toggle}
 									onDestroy=${this.destroy}
 									onEdit=${this.edit}
