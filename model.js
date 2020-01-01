@@ -5,6 +5,16 @@ class TodoModel {
 		this.key = key;
 		this.todos = store(key) || [];
 		this.onChanges = [sub];
+
+		firestore.collection(key).get()
+			.then(querySnapshot => {
+				querySnapshot.forEach(doc => {
+					console.log(doc.id, " => ", doc.data());
+				});
+			})
+			.catch(function(error) {
+				console.log("Error getting documents: ", error);
+			});
 	}
 
 	inform() {
