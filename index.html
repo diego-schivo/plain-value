@@ -2,13 +2,15 @@
 <html>
 	<head>
 		<title>Preact without Babel or JSX</title>
+		<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 	</head>
 	<body>
+		<div id="firebaseui-auth-container"></div>
+		<div id="loader">Loading...</div>
 		<section class="todoapp"></section>
 
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
 		<script>
 			var firebaseConfig = {
 				apiKey: "AIzaSyAvTqjzMZMYtvNF44-3x5M_Z34G50Ma7uA",
@@ -22,6 +24,34 @@
 			};
 			var firebaseApp = firebase.initializeApp(firebaseConfig);
 			firebase.analytics();
+		</script>
+
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+		<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+		<script>
+			var ui = new firebaseui.auth.AuthUI(firebase.auth());
+			var uiConfig = {
+				callbacks: {
+					signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+						return true;
+					},
+					uiShown: function() {
+						document.getElementById('loader').style.display = 'none';
+					}
+				},
+				signInFlow: 'popup',
+				signInSuccessUrl: 'http://www.plainvalue.it',
+				signInOptions: [
+					firebase.auth.GoogleAuthProvider.PROVIDER_ID
+				],
+				tosUrl: 'http://www.plainvalue.it',
+				privacyPolicyUrl: 'http://www.plainvalue.it'
+			};
+			ui.start('#firebaseui-auth-container', uiConfig);
+		</script>
+
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+		<script>
 			var firestore = firebase.firestore(firebaseApp);
 		</script>
 
