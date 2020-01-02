@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Preact without Babel or JSX</title>
-		<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-	</head>
-	<body>
-		<div id="firebaseui-auth-container"></div>
-		<div id="loader">Loading...</div>
-		<section class="todoapp"></section>
+		<meta charset="UTF-8">
+		<title>Sample FirebaseUI App</title>
 
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
 		<script>
 			var firebaseConfig = {
 				apiKey: "AIzaSyAvTqjzMZMYtvNF44-3x5M_Z34G50Ma7uA",
@@ -24,36 +21,32 @@
 			};
 			var firebaseApp = firebase.initializeApp(firebaseConfig);
 			firebase.analytics();
+			var firestore = firebase.firestore(firebaseApp);
 		</script>
 
-		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
-		<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-		<script>
-			var ui = new firebaseui.auth.AuthUI(firebase.auth());
+		<script src="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth.js"></script>
+		<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth.css" />
+		<script type="text/javascript">
 			var uiConfig = {
-				callbacks: {
-					signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-						return true;
-					},
-					uiShown: function() {
-						document.getElementById('loader').style.display = 'none';
-					}
-				},
-				signInFlow: 'popup',
 				signInSuccessUrl: 'http://www.plainvalue.it',
 				signInOptions: [
 					firebase.auth.GoogleAuthProvider.PROVIDER_ID
 				],
 				tosUrl: 'http://www.plainvalue.it',
-				privacyPolicyUrl: 'http://www.plainvalue.it'
+				privacyPolicyUrl: function() {
+					window.location.assign('http://www.plainvalue.it');
+				}
 			};
+
+			var ui = new firebaseui.auth.AuthUI(firebase.auth());
 			ui.start('#firebaseui-auth-container', uiConfig);
 		</script>
+	</head>
+	<body>
+		<h1>Welcome to My Awesome App</h1>
+		<div id="firebaseui-auth-container"></div>
 
-		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
-		<script>
-			var firestore = firebase.firestore(firebaseApp);
-		</script>
+		<section class="todoapp"></section>
 
 		<script src="https://unpkg.com/preact"></script>
 		<script src="https://unpkg.com/htm"></script>
