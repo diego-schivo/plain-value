@@ -120,7 +120,7 @@ class App extends Component {
 						<ul class="todo-list">
 							${ shownTodos.map( todo => html`
 								<${TodoItem}
-									todo=${todo.data()}
+									todo=${todo}
 									onToggle=${this.toggle}
 									onDestroy=${this.destroy}
 									onEdit=${this.edit}

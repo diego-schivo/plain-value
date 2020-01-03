@@ -45,10 +45,11 @@ class TodoModel {
 	}
 
 	toggleAll(completed) {
-		this.todos = this.todos.map(
-			todo => ({ ...todo, completed })
-		);
-		this.inform();
+		this.todos.forEach(todo => todo.ref.set({ completed }, { merge: true })
+			.then(() => {
+				this.todos = this.todos.slice();
+				this.inform();
+			}));
 	}
 
 	toggle(todoToToggle) {
