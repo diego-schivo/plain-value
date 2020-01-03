@@ -52,10 +52,11 @@ class TodoModel {
 	}
 
 	toggle(todoToToggle) {
-		this.todos = this.todos.map( todo => (
-			todo !== todoToToggle ? todo : ({ ...todo, completed: !todo.completed })
-		) );
-		this.inform();
+		todoToToggle.ref.set({ completed: !todoToToggle.get('completed') }, { merge: true })
+			.then(() => {
+				this.todos = this.todos.slice();
+				this.inform();
+			});
 	}
 
 	destroy(todo) {
