@@ -18,11 +18,11 @@ class TodoModel {
 				completed: false
 			}).then(doc => {
 				this.todos = this.todos.concat(doc);
+				this.inform();
 			})
 			.catch(function(error) {
 				console.log("Error adding document: ", error);
 			});
-		this.inform();
 	}
 
 	toggleAll(completed) {
