@@ -3,7 +3,7 @@
 class TodoModel {
 	constructor(key, sub) {
 		this.key = key;
-		firestore.collection(key).get()
+		firestore.collection(key).where("author_uid", "==", firebase.auth().currentUser.uid).get()
 			.then(querySnapshot => {
 				this.todos = querySnapshot.docs;
 				this.inform();
@@ -21,6 +21,7 @@ class TodoModel {
 	addTodo(title) {
 		firestore.collection(this.key)
 			.add({
+				author_uid: firebase.auth().currentUser.uid,
 				title,
 				completed: false
 			}).then(doc => {
