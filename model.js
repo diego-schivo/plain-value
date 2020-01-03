@@ -3,7 +3,25 @@
 class TodoModel {
 	constructor(key, sub) {
 		this.key = key;
+		this.store();
 		this.onChanges = [sub];
+	}
+
+	store() {
+		var user = firebase.auth().currentUser;
+		if (user) {
+			firestore.collection(this.key).where("author_uid", "==", user.uid).get()
+				.then(querySnapshot => {
+					this.todos = querySnapshot.docs;
+					this.inform();
+				})
+				.catch(function(error) {
+					console.log("Error getting documents: ", error);
+				});
+		} else {
+			this.todos = [];
+			this.inform();
+		}
 	}
 
 	inform() {

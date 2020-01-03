@@ -31,19 +31,7 @@ class App extends Component {
 		addEventListener('hashchange', this.handleRoute);
 		this.handleRoute();
 
-		firebase.auth().onAuthStateChanged((user) => {
-			if (!user) {
-				return;
-			}
-			firestore.collection(this.model.key).where("author_uid", "==", user.uid).get()
-				.then(querySnapshot => {
-					this.model.todos = querySnapshot.docs;
-					this.model.inform();
-				})
-				.catch(function(error) {
-					console.log("Error getting documents: ", error);
-				});
-		});
+		firebase.auth().onAuthStateChanged((user) => this.model.store() );
 	}
 
 	handleRoute() {
