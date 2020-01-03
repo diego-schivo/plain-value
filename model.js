@@ -34,7 +34,8 @@ class TodoModel {
 				author_uid: firebase.auth().currentUser.uid,
 				title,
 				completed: false
-			}).then(doc => {
+			}).then(ref => ref.get())
+			.then(doc => {
 				this.todos = this.todos.concat(doc);
 				this.inform();
 			})
