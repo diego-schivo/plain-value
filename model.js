@@ -3,8 +3,8 @@
 class TodoModel {
 	constructor(key, sub) {
 		this.key = key;
-		this.store();
 		this.onChanges = [sub];
+		this.store();
 	}
 
 	store() {
