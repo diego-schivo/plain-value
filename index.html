@@ -31,10 +31,14 @@
 				signInFlow: 'popup',
 				signInSuccessUrl: 'http://www.plainvalue.it',
 				signInOptions: [
-					firebase.auth.GoogleAuthProvider.PROVIDER_ID
+					{
+						provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+						authMethod: 'https://accounts.google.com'
+					}
 				],
 				tosUrl: 'https://www.google.com',
-				privacyPolicyUrl: 'https://www.google.com'
+				privacyPolicyUrl: 'https://www.google.com',
+				credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
 			};
 
 			var ui = new firebaseui.auth.AuthUI(firebase.auth());
