@@ -8,7 +8,7 @@ class TodoModel {
 	}
 
 	store() {
-		var user = firebase.auth().currentUser;
+		let user = firebase.auth().currentUser;
 		if (user) {
 			firestore.collection(this.key).where("author_uid", "==", user.uid).get()
 				.then(querySnapshot => {
@@ -45,7 +45,7 @@ class TodoModel {
 	}
 
 	toggleAll(completed) {
-		var batch = firestore.batch();
+		let batch = firestore.batch();
 		this.todos.forEach(todo => batch.update(todo.ref, {completed}));
 		batch.commit()
 			.then(() => {
@@ -55,7 +55,7 @@ class TodoModel {
 	}
 
 	toggle(todoToToggle) {
-		todoToToggle.ref.set({ completed: !todoToToggle.get('completed') }, { merge: true })
+		todoToToggle.ref.update('completed', !todoToToggle.get('completed'))
 			.then(() => {
 				this.todos = this.todos.slice();
 				this.inform();
@@ -63,19 +63,35 @@ class TodoModel {
 	}
 
 	destroy(todo) {
-		this.todos = this.todos.filter( t => t !== todo );
-		this.inform();
+		todo.ref.delete()
+			.then(() => {
+				this.todos = this.todos.filter(t.id => (t.id !== todo.id));
+				this.inform();
+			});
 	}
 
 	save(todoToSave, title) {
-		this.todos = this.todos.map( todo => (
-			todo !== todoToSave ? todo : ({ ...todo, title })
-		));
-		this.inform();
+		todoToSave.ref.update('title', title)
+			.then(() => {
+				this.todos = this.todos.slice();
+				this.inform();
+			});
 	}
 
 	clearCompleted() {
-		this.todos = this.todos.filter( todo => !todo.completed );
-		this.inform();
+		let batch = firestore.batch();
+		let todos = this.todos
+			.filter(todo => {
+				let completed = todo.get('completed');
+				if (completed) {
+					batch.delete(todo.ref);
+				}
+				return !completed;
+			});
+		batch.commit()
+			.then(() => {
+				this.todos = todos;
+				this.inform();
+			});
 	}
 }
