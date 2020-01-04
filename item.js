@@ -60,9 +60,7 @@ class TodoItem extends Component {
 		if (node) node.focus();
 	}
 
-	render({ todo, onToggle, onDestroy, editing }, { editText }) {
-		let title = todo.get('title')
-		let completed = todo.get('completed')
+	render({ todo: { title, completed }, onToggle, onDestroy, editing }, { editText }) {
 		return html`
 			<li class=${{ completed, editing }}>
 				<div class="view">
