@@ -67,7 +67,7 @@ class TodoModel {
 	destroy(todo) {
 		todo.ref.delete()
 			.then(() => {
-				this.todos = this.todos.filter(t.id => (t.id !== todo.id));
+				this.todos = this.todos.filter(t => (t.id !== todo.id));
 				this.inform();
 			});
 	}
