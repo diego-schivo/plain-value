@@ -55,8 +55,10 @@ class TodoModel {
 	}
 
 	toggle(todoToToggle) {
+		console.log(1, todoToToggle.get('completed'));
 		todoToToggle.ref.update('completed', !todoToToggle.get('completed'))
 			.then(() => {
+				console.log(2, todoToToggle.get('completed'));
 				this.todos = this.todos.slice();
 				this.inform();
 			});
