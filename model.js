@@ -45,11 +45,13 @@ class TodoModel {
 	}
 
 	toggleAll(completed) {
-		this.todos.forEach(todo => todo.ref.set({ completed }, { merge: true })
+		var batch = firestore.batch();
+		this.todos.forEach(todo => batch.update(todo.ref, {completed});
+		batch.commit()
 			.then(() => {
 				this.todos = this.todos.slice();
 				this.inform();
-			}));
+			});
 	}
 
 	toggle(todoToToggle) {
