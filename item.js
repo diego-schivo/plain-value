@@ -61,17 +61,18 @@ class TodoItem extends Component {
 	}
 
 	render({ todo, onToggle, onDestroy, editing }, { editText }) {
-		let data = todo.data();
+		let title = todo.get('title')
+		let completed = todo.get('completed')
 		return html`
-			<li class=${{ data.completed, editing }}>
+			<li class=${{ completed, editing }}>
 				<div class="view">
 					<input
 						class="toggle"
 						type="checkbox"
-						checked=${data.completed}
+						checked=${completed}
 						onChange=${this.toggle}
 					/>
-					<label onDblClick=${this.handleEdit}>${data.title}</label>
+					<label onDblClick=${this.handleEdit}>${title}</label>
 					<button class="destroy" onClick=${this.handleDestroy} />
 				</div>
 				${ editing && html`

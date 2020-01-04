@@ -46,7 +46,7 @@ class TodoModel {
 
 	toggleAll(completed) {
 		var batch = firestore.batch();
-		this.todos.forEach(todo => batch.update(todo.ref, {completed});
+		this.todos.forEach(todo => batch.update(todo.ref, {completed}));
 		batch.commit()
 			.then(() => {
 				this.todos = this.todos.slice();
