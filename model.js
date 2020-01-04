@@ -12,7 +12,8 @@ class TodoModel {
 		if (user) {
 			firestore.collection(this.key).where("author_uid", "==", user.uid).get()
 				.then(querySnapshot => {
-					this.todos = querySnapshot.docs.map(doc => { ...doc.data(), ref: doc.ref });
+					this.todos = querySnapshot.docs
+						.map(doc => ({ ...doc.data(), ref: doc.ref }));
 					this.inform();
 				})
 				.catch(function(error) {

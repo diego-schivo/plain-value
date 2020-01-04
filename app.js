@@ -9,7 +9,7 @@ const ESCAPE_KEY = 27;
 const FILTERS = {
 	all: todo => true,
 	active: todo => !todo.completed,
-	completed: todo => todo.completed)
+	completed: todo => todo.completed
 };
 
 class App extends Component {
