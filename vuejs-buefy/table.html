@@ -8,31 +8,42 @@
 
 <body>
     <div id="app" class="container">
-        <b-table :data="data" :columns="columns"></b-table>
-
         <section>
-            <b-field label="ID">
-                <b-input value="1"></b-input>
-            </b-field>
+            <b-tabs>
+                <b-tab-item label="Table">
+                    <b-table
+                        :data="data"
+                        :columns="columns"
+                        :selected.sync="selected"
+                        focusable>
+                    </b-table>
+                </b-tab-item>
 
-            <b-field label="First name">
-                <b-input value="Jesse"></b-input>
-            </b-field>
+                <b-tab-item label="Selected">
+                    <b-field label="ID">
+                        <b-input value="{{ selected.id }}"></b-input>
+                    </b-field>
 
-            <b-field label="Last name">
-                <b-input value="Simmons"></b-input>
-            </b-field>
+                    <b-field label="First name">
+                        <b-input value="{{ selected.first_name }}"></b-input>
+                    </b-field>
 
-            <b-field label="Date">
-                <b-input value="2016-10-15 13:43:27"></b-input>
-            </b-field>
+                    <b-field label="Last name">
+                        <b-input value="{{ selected.last_name }}"></b-input>
+                    </b-field>
 
-            <b-field label="Gender">
-                <b-select placeholder="Select a gender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </b-select>
-            </b-field>
+                    <b-field label="Date">
+                        <b-input value="{{ selected.date }}"></b-input>
+                    </b-field>
+
+                    <b-field label="Gender">
+                        <b-select placeholder="Select a gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </b-select>
+                    </b-field>
+                </b-tab-item>
+            </b-tabs>
         </section>
     </div>
 
@@ -42,14 +53,17 @@
     <script>
         const example = {
             data() {
+                const data = [
+                    { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
+                    { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
+                    { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
+                    { 'id': 4, 'first_name': 'Clarence', 'last_name': 'Flores', 'date': '2016-04-10 10:28:46', 'gender': 'Male' },
+                    { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
+                ]
+
                 return {
-                    data: [
-                        { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
-                        { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
-                        { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
-                        { 'id': 4, 'first_name': 'Clarence', 'last_name': 'Flores', 'date': '2016-04-10 10:28:46', 'gender': 'Male' },
-                        { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
-                    ],
+                    data,
+                    selected: data[1],
                     columns: [
                         {
                             field: 'id',
