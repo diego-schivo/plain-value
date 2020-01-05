@@ -21,23 +21,23 @@
 
                 <b-tab-item label="Selected">
                     <b-field label="ID">
-                        <b-input value="{{ selected.id }}"></b-input>
+                        <b-input :value="selected.id"></b-input>
                     </b-field>
 
                     <b-field label="First name">
-                        <b-input value="{{ selected.first_name }}"></b-input>
+                        <b-input :value="selected.first_name"></b-input>
                     </b-field>
 
                     <b-field label="Last name">
-                        <b-input value="{{ selected.last_name }}"></b-input>
+                        <b-input :value="selected.last_name"></b-input>
                     </b-field>
 
                     <b-field label="Date">
-                        <b-input value="{{ selected.date }}"></b-input>
+                        <b-input :value="selected.date"></b-input>
                     </b-field>
 
                     <b-field label="Gender">
-                        <b-select placeholder="Select a gender">
+                        <b-select :value="selected.gender" placeholder="Select a gender">
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </b-select>
