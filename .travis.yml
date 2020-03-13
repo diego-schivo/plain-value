@@ -1,6 +1,4 @@
 language: java
-jdk:
-  - oraclejdk8
 before_script:
   - cd demo
   - chmod +x gradlew
