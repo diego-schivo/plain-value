@@ -2,5 +2,5 @@ language: java
 
 before_script: cd demo
 
-after_success: |
-  bash <(curl -s https://codecov.io/bash)
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
