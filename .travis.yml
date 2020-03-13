@@ -1,6 +1,11 @@
 language: java
-
-before_script: cd demo
-
+jdk:
+  - oraclejdk8
+before_script:
+  - cd demo
+  - chmod +x gradlew
+script:
+  - ./gradlew check
+  - ./gradlew codeCoverageReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
