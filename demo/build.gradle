@@ -12,6 +12,8 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
+
+    id 'jacoco'
 }
 
 repositories {
@@ -42,3 +44,12 @@ test {
 		events "passed", "skipped", "failed"
 	}
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
