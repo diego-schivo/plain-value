@@ -112,6 +112,8 @@ public class PlainValueTest {
 	public void testFind() {
 		assertThrows(NullPointerException.class, () -> find(null, null, null));
 		assertNull(find("foo", null, (obj1, obj2) -> null));
+		assertNull(find("foo", Arrays.asList(0, 1, 2), (str1, index) -> null));
+		assertEquals("foo", find("foo", Collections.emptySet(), (str, index) -> str + index));
 		assertEquals("foo012", find("foo", Arrays.asList(0, 1, 2), (str, index) -> str + index));
 	}
 }

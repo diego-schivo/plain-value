@@ -37,10 +37,6 @@ public class PlainValue {
 		return impl.convert(stream, class1);
 	}
 
-//	public static <T, U> U convert(Supplier<T> supplier, Class<U> class1) {
-//		return impl.convert(supplier, class1);
-//	}
-
 	public static <T> T unsafeGet(ThrowSupplier<T> supplier) {
 		return impl.unsafeGet(supplier);
 	}
