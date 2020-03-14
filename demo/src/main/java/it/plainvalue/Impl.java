@@ -126,10 +126,10 @@ class Impl {
 			@Override
 			@SuppressWarnings("unchecked")
 			public <U> U to(Class<U> class1) {
-				if (stream == null) {
-					return null;
-				}
 				if (Objects.equals(class1, Iterator.class)) {
+					if (stream == null) {
+						return (U) Collections.emptyIterator();
+					}
 					return (U) stream.iterator();
 				}
 				if (Objects.equals(class1, Iterable.class)) {

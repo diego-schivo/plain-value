@@ -90,14 +90,20 @@ public class PlainValueTest {
 		Iterable<Object> objects3 = convert(new Object[] { null }, Iterable.class);
 		assertIterableEquals(Collections.singleton(null), objects3);
 
-		Iterable<String> strings = convert(array("foo", "bar"), Iterable.class);
-		assertIterableEquals(Arrays.asList("foo", "bar"), strings);
+		Iterable<String> strings1 = convert(array("foo", "bar"), Iterable.class);
+		assertIterableEquals(Arrays.asList("foo", "bar"), strings1);
 
 		assertThrows(NoSuchElementException.class, () -> {
 			convert(array(), Iterator.class).next();
 		});
 
 		assertNull(convert(array("foo", "bar"), Stream.class));
+
+		Iterator<Object> objects4 = convert((Stream<Object>) null, Iterator.class);
+		assertEquals(Collections.emptyIterator(), objects4);
+
+		Iterable<Object> strings2 = convert(Arrays.stream(array("foo", "bar")), Iterable.class);
+		assertIterableEquals(Arrays.asList("foo", "bar"), strings2);
 	}
 
 	@Test
