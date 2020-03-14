@@ -2,6 +2,7 @@ package it.plainvalue;
 
 import static it.plainvalue.PlainValue.array;
 import static it.plainvalue.PlainValue.convert;
+import static it.plainvalue.PlainValue.find;
 import static it.plainvalue.PlainValue.iterable;
 import static it.plainvalue.PlainValue.split;
 import static it.plainvalue.PlainValue.stream;
@@ -100,5 +101,17 @@ public class PlainValueTest {
 	public void testIterable() {
 		assertThrows(NullPointerException.class, () -> iterable(null, null));
 		assertIterableEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), iterable(1, n -> (n <= 9) ? (n + 1) : null));
+		assertThrows(NoSuchElementException.class, () -> {
+			Iterator<String> iterator = iterable("foo", str -> null).iterator();
+			iterator.next();
+			iterator.next();
+		});
+	}
+
+	@Test
+	public void testFind() {
+		assertThrows(NullPointerException.class, () -> find(null, null, null));
+		assertNull(find("foo", null, (obj1, obj2) -> null));
+		assertEquals("foo012", find("foo", Arrays.asList(0, 1, 2), (str, index) -> str + index));
 	}
 }
