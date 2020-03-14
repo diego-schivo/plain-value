@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Collections;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.plainvalue.datatypes.Tree.Node;
@@ -13,7 +14,12 @@ import it.plainvalue.datatypes.TreeImpl.NodeImpl;
 
 public class TreeImplTest {
 
-	TreeImpl<Node> tree = new TreeImpl<Node>(NodeImpl.class);
+	TreeImpl<Node> tree;
+
+	@BeforeEach
+	public void initTree() {
+		tree = new TreeImpl<Node>(NodeImpl.class);
+	}
 
 	@Test
 	public void testGetRoot() {

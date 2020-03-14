@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.plainvalue.datatypes.Repository.Content;
@@ -12,7 +13,12 @@ import it.plainvalue.datatypes.RepositoryImpl.ContentImpl;
 
 public class RepositoryImplTest {
 
-	RepositoryImpl<Content> repository = new RepositoryImpl<Content>(ContentImpl.class);
+	RepositoryImpl<Content> repository;
+
+	@BeforeEach
+	public void initRepository() {
+		repository = new RepositoryImpl<Content>(ContentImpl.class);
+	}
 
 	@AfterEach
 	public void clearContents() {

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.plainvalue.datatypes.TreeRepository.NodeContent;
@@ -12,12 +12,11 @@ import it.plainvalue.datatypes.TreeRepositoryImpl.NodeContentImpl;
 
 public class TreeRepositoryImplTest {
 
-	TreeRepositoryImpl<NodeContent> repository = new TreeRepositoryImpl<NodeContent>(NodeContentImpl.class);
+	TreeRepositoryImpl<NodeContent> repository;
 
-	@AfterEach
-	public void clearContents() {
-		repository.contents.clear();
-		repository.tree.clear();
+	@BeforeEach
+	public void initRepository() {
+		repository = new TreeRepositoryImpl<NodeContent>(NodeContentImpl.class);
 	}
 
 	@Test
@@ -35,6 +34,8 @@ public class TreeRepositoryImplTest {
 
 		NodeContent content2 = repository.newContent("foo");
 		repository.putContent(content2);
+
+		assertNull(repository.getContentByPath("foo"));
 
 		NodeContent content3 = repository.getContentByPath("/foo");
 		assertNotNull(content3);
