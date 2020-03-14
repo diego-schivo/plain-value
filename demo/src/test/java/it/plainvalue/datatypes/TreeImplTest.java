@@ -39,9 +39,11 @@ public class TreeImplTest {
 		Node node = tree.newNode();
 		tree.putNode(node, null);
 		assertEquals(tree.root, node.getParent());
+		assertEquals(2, rootChildren.size());
 		assertEquals(rootChildren.get(1), node);
 
 		tree.putNode(node, null);
+		assertEquals(2, rootChildren.size());
 	}
 
 	@Test

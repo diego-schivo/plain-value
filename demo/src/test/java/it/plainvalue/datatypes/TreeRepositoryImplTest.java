@@ -51,11 +51,11 @@ public class TreeRepositoryImplTest {
 
 	@Test
 	public void testPutContent() {
-		Object id1 = repository.putContent(null, null);
+		Object id1 = repository.putContent(null);
 		assertNull(id1);
 
 		NodeContent content2 = repository.newContent("bar");
-		Object id2 = repository.putContent(content2, null);
+		Object id2 = repository.putContent(content2);
 		assertNotNull(id2);
 		assertEquals(id2, content2.getId());
 
