@@ -24,7 +24,6 @@ public class RepositoryImplTest {
 		Content content = repository.newContent();
 		assertNotNull(content);
 		assertNull(content.getId());
-		assertNull(content.getValue());
 	}
 
 	@Test

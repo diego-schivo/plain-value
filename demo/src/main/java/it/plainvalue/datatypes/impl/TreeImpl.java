@@ -20,7 +20,7 @@ public class TreeImpl<T extends Node> implements Tree<T> {
 
 	protected TreeImpl(Class<? extends T> nodeClass) {
 		this.nodeClass = nodeClass;
-		root = unsafeGet(() -> nodeClass.newInstance());
+		clear();
 	}
 
 	@Override
@@ -29,7 +29,18 @@ public class TreeImpl<T extends Node> implements Tree<T> {
 	}
 
 	@Override
+	public T newNode() {
+		return unsafeGet(() -> nodeClass.newInstance());
+	}
+
+	@Override
 	public void putNode(T node, T parent) {
+		if (node == null) {
+			return;
+		}
+		if (parent == null) {
+			parent = getRoot();
+		}
 		if (node.getParent() != null) {
 			// TODO
 		}
@@ -38,8 +49,8 @@ public class TreeImpl<T extends Node> implements Tree<T> {
 	}
 
 	@Override
-	public T newNode() {
-		return unsafeGet(() -> nodeClass.newInstance());
+	public void clear() {
+		root = unsafeGet(() -> nodeClass.newInstance());
 	}
 
 	static class NodeImpl extends ItemImpl implements Node {

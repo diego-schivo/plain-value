@@ -9,7 +9,7 @@ public interface TreeRepository<T extends NodeContent> extends Repository<T> {
 
 	T getContentByPath(String path);
 
-	void putContent(T content, T parent);
+	Object putContent(T content, T parent);
 
 	interface NodeContent extends Content, Node {
 

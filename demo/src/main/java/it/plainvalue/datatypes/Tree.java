@@ -6,9 +6,11 @@ public interface Tree<T extends Node> {
 
 	T getRoot();
 
+	T newNode();
+
 	void putNode(T node, T parent);
 
-	T newNode();
+	void clear();
 
 	interface Node extends Item {
 

@@ -52,9 +52,18 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 	}
 
 	@Override
-	public void putContent(T content, T parent) {
-		super.putContent(content);
+	public Object putContent(T content, T parent) {
+		Object id = super.putContent(content);
+		if (id == null) {
+			return null;
+		}
 		tree.putNode(content, parent);
+		return id;
+	}
+
+	@Override
+	public Object putContent(T content) {
+		return putContent(content, null);
 	}
 
 	static class NodeContentImpl extends ContentImpl implements NodeContent {
