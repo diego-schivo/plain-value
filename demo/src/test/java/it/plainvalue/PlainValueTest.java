@@ -5,12 +5,13 @@ import static it.plainvalue.PlainValue.convert;
 import static it.plainvalue.PlainValue.split;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,6 +35,21 @@ public class PlainValueTest {
 	}
 
 	@Test
+	public void testSplit() {
+		Iterable<String> strings = split(null, '/');
+		assertNull(strings);
+
+		strings = split("", '/');
+		assertIterableEquals(Arrays.asList(""), strings);
+
+		strings = split("foo", '/');
+		assertIterableEquals(Arrays.asList("foo"), strings);
+
+		strings = split("/foo/bar/baz", '/');
+		assertIterableEquals(Arrays.asList("", "foo", "bar", "baz"), strings);
+	}
+
+	@Test
 	@SuppressWarnings("unchecked")
 	public void testConvert() {
 		Iterator<Object> objects = convert((Object[]) null, Iterator.class);
@@ -46,29 +62,5 @@ public class PlainValueTest {
 		assertTrue(strings.hasNext());
 		assertEquals("bar", strings.next());
 		assertFalse(strings.hasNext());
-	}
-
-	@Test
-	public void testSplit() {
-		Supplier<String> strings = split(null, '/');
-		assertNull(strings);
-
-		strings = split("", '/');
-		assertNotNull(strings);
-		assertEquals("", strings.get());
-		assertNull(strings.get());
-
-		strings = split("foo", '/');
-		assertNotNull(strings);
-		assertEquals("foo", strings.get());
-		assertNull(strings.get());
-
-		strings = split("/foo/bar/baz", '/');
-		assertNotNull(strings);
-		assertEquals("", strings.get());
-		assertEquals("foo", strings.get());
-		assertEquals("bar", strings.get());
-		assertEquals("baz", strings.get());
-		assertNull(strings.get());
 	}
 }
