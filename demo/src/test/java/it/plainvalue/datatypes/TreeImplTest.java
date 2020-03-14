@@ -34,5 +34,7 @@ public class TreeImplTest {
 		tree.putNode(node, null);
 		assertEquals(tree.getRoot(), node.getParent());
 		assertIterableEquals(tree.getRoot().getChildren(), Collections.singleton(node));
+
+		tree.putNode(node, null);
 	}
 }

@@ -4,6 +4,7 @@ import static it.plainvalue.PlainValue.unsafeGet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import it.plainvalue.datatypes.Impl.ItemImpl;
 import it.plainvalue.datatypes.Tree.Node;
@@ -37,9 +38,7 @@ class TreeImpl<T extends Node> implements Tree<T> {
 		if (parent == null) {
 			parent = getRoot();
 		}
-		if (node.getParent() != null) {
-			((ModifiableNode) node.getParent()).removeChild(node);
-		}
+
 		((ModifiableNode) node).setParent(parent);
 		((ModifiableNode) parent).addChild(node);
 	}
@@ -71,6 +70,12 @@ class TreeImpl<T extends Node> implements Tree<T> {
 
 		@Override
 		public void setParent(Node parent) {
+			if (Objects.equals(parent, this.parent)) {
+				return;
+			}
+			if (this.parent != null) {
+				((ModifiableNode) this.parent).removeChild(this);
+			}
 			this.parent = parent;
 		}
 
@@ -81,7 +86,7 @@ class TreeImpl<T extends Node> implements Tree<T> {
 
 		@Override
 		public void addChild(Node child) {
-			if (child == null) {
+			if (child == null || children.contains(child)) {
 				return;
 			}
 			children.add(child);
