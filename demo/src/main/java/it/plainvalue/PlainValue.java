@@ -27,6 +27,9 @@ public class PlainValue {
 	}
 
 	public static <T> Stream<T> stream(Iterable<T> iterable) {
+		if (iterable == null) {
+			return Stream.empty();
+		}
 		return StreamSupport.stream(iterable.spliterator(), false);
 	}
 
@@ -36,5 +39,13 @@ public class PlainValue {
 
 	public static <T, U> U convert(Supplier<T> supplier, Class<U> class1) {
 		return impl.from(supplier).to(class1);
+	}
+
+	public static <T> T unsafeGet(ThrowSupplier<T> supplier) {
+		try {
+			return supplier.get();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

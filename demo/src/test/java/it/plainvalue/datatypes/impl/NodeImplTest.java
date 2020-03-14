@@ -1,4 +1,4 @@
-package it.plainvalue.adt.impl;
+package it.plainvalue.datatypes.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-import it.plainvalue.adt.Node;
+import it.plainvalue.datatypes.impl.TreeImpl.NodeImpl;
 
 public class NodeImplTest {
 
-	Node node = new NodeImpl();
+	NodeImpl node = new NodeImpl();
 
 	@Test
 	public void testGetParent() {

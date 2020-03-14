@@ -1,16 +1,15 @@
-package it.plainvalue.adt.impl;
+package it.plainvalue.datatypes.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import it.plainvalue.adt.Node;
-import it.plainvalue.adt.Tree;
+import it.plainvalue.datatypes.Tree.Node;
 
 public class TreeImplTest {
 
-	Tree tree = new TreeImpl();
+	TreeImpl<Node> tree = TreeImpl.newInstance();
 
 	@Test
 	public void testGetRoot() {
