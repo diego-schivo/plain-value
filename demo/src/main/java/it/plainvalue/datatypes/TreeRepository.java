@@ -2,11 +2,8 @@ package it.plainvalue.datatypes;
 
 import it.plainvalue.datatypes.Tree.Node;
 import it.plainvalue.datatypes.TreeRepository.NodeContent;
-import it.plainvalue.datatypes.TreeRepositoryImpl.NodeContentImpl;
 
 public interface TreeRepository<T extends NodeContent> extends Repository<T> {
-
-	T getRoot();
 
 	T getContentByPath(String path);
 

@@ -21,11 +21,6 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 	}
 
 	@Override
-	public T getRoot() {
-		return tree.getRoot();
-	}
-
-	@Override
 	@SuppressWarnings("unchecked")
 	public T getContentByPath(String path) {
 		if (path == null || !path.startsWith("/")) {
