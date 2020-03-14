@@ -31,7 +31,7 @@ class RepositoryImpl<T extends Content> implements Repository<T> {
 			return null;
 		}
 		if (content.getId() == null) {
-			content.setId(new Object());
+			((ModifiableContent) content).setId(new Object());
 		}
 		contents.put(content.getId(), content);
 		return content.getId();
@@ -42,7 +42,12 @@ class RepositoryImpl<T extends Content> implements Repository<T> {
 		return unsafeGet(() -> contentClass.newInstance());
 	}
 
-	static class ContentImpl extends ItemImpl implements Content {
+	interface ModifiableContent extends Content {
+
+		void setId(Object id);
+	}
+
+	static class ContentImpl extends ItemImpl implements ModifiableContent {
 
 		Object id;
 

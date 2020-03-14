@@ -14,8 +14,6 @@ public interface Repository<T extends Content> {
 	interface Content extends Item {
 
 		Object getId();
-
-		void setId(Object id);
 	}
 
 	static Repository<Content> newRepository() {

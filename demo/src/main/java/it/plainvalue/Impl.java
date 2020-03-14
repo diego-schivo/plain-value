@@ -33,23 +33,23 @@ class Impl {
 		return str.substring(index + 1);
 	}
 
-	@SuppressWarnings("unchecked")
 	Iterable<String> split(String str, int ch) {
-		return from(split0(str, ch)).to(Iterable.class);
-	}
-
-	Supplier<String> split0(String str, int ch) {
 		if (str == null) {
 			return null;
 		}
-		return new Supplier<String>() {
+		return () -> new Iterator<String>() {
 
 			int fromIndex;
 
 			@Override
-			public String get() {
+			public boolean hasNext() {
+				return fromIndex <= str.length();
+			}
+
+			@Override
+			public String next() {
 				if (fromIndex > str.length()) {
-					return null;
+					throw new NoSuchElementException();
 				}
 				int toIndex = str.indexOf(ch, fromIndex);
 				if (toIndex == -1) {
@@ -78,8 +78,8 @@ class Impl {
 		return from(array).to(class1);
 	}
 
-	<T, U> U convert(Supplier<T> supplier, Class<U> class1) {
-		return from(supplier).to(class1);
+	<T, U> U convert(Stream<T> stream, Class<U> class1) {
+		return from(stream).to(class1);
 	}
 
 	<T> T unsafeGet(ThrowSupplier<T> supplier) {
@@ -174,63 +174,27 @@ class Impl {
 					};
 				}
 				if (Objects.equals(class1, Iterable.class)) {
-					return (U) new Iterable<T>() {
-
-						@Override
-						public Iterator<T> iterator() {
-							return (Iterator<T>) to(Iterator.class);
-						}
-					};
+					return (U) (Iterable<T>) () -> (Iterator<T>) to(Iterator.class);
 				}
 				return null;
 			}
 		};
 	}
 
-	<T> To<?> from(Supplier<T> supplier) {
+	<T> To<?> from(Stream<T> stream) {
 		return new To<T>() {
 
 			@Override
 			@SuppressWarnings("unchecked")
 			public <U> U to(Class<U> class1) {
-				if (supplier == null) {
+				if (stream == null) {
 					return null;
 				}
 				if (Objects.equals(class1, Iterator.class)) {
-					return (U) new Iterator<T>() {
-
-						Boolean hasMoreElements;
-						T element;
-
-						@Override
-						public boolean hasNext() {
-							if (hasMoreElements == null) {
-								element = supplier.get();
-								hasMoreElements = (element != null);
-							}
-							return hasMoreElements;
-						}
-
-						@Override
-						public T next() {
-							if (!hasNext()) {
-								throw new NoSuchElementException();
-							}
-							T next = element;
-							hasMoreElements = null;
-							element = null;
-							return next;
-						}
-					};
+					return (U) stream.iterator();
 				}
 				if (Objects.equals(class1, Iterable.class)) {
-					return (U) new Iterable<T>() {
-
-						@Override
-						public Iterator<T> iterator() {
-							return (Iterator<T>) to(Iterator.class);
-						}
-					};
+					return (U) (Iterable<T>) () -> (Iterator<T>) to(Iterator.class);
 				}
 				return null;
 			}

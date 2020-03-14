@@ -3,6 +3,7 @@ package it.plainvalue;
 import static it.plainvalue.PlainValue.array;
 import static it.plainvalue.PlainValue.convert;
 import static it.plainvalue.PlainValue.split;
+import static it.plainvalue.PlainValue.stream;
 import static it.plainvalue.PlainValue.substringAfterLast;
 import static it.plainvalue.PlainValue.substringBeforeLast;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -20,12 +21,14 @@ public class PlainValueTest {
 	@Test
 	public void testsSubstringBeforeLast() {
 		assertNull(substringBeforeLast(null, '/'));
+		assertEquals(null, substringBeforeLast("foo", '/'));
 		assertEquals("/foo/bar", substringBeforeLast("/foo/bar/baz", '/'));
 	}
 
 	@Test
 	public void testsSubstringAfterLast() {
 		assertNull(substringAfterLast(null, '/'));
+		assertEquals(null, substringAfterLast("foo", '/'));
 		assertEquals("baz", substringAfterLast("/foo/bar/baz", '/'));
 	}
 
@@ -54,6 +57,11 @@ public class PlainValueTest {
 
 		String[] strings = array("foo", "bar");
 		assertArrayEquals(new String[] { "foo", "bar" }, strings);
+	}
+
+	@Test
+	public void testStream() {
+		assertIterableEquals(Collections.emptySet(), convert(stream(null), Iterable.class));
 	}
 
 	@Test

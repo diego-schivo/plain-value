@@ -2,7 +2,6 @@ package it.plainvalue;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class PlainValue {
@@ -34,9 +33,13 @@ public class PlainValue {
 		return impl.convert(array, class1);
 	}
 
-	public static <T, U> U convert(Supplier<T> supplier, Class<U> class1) {
-		return impl.convert(supplier, class1);
+	public static <T, U> U convert(Stream<T> stream, Class<U> class1) {
+		return impl.convert(stream, class1);
 	}
+
+//	public static <T, U> U convert(Supplier<T> supplier, Class<U> class1) {
+//		return impl.convert(supplier, class1);
+//	}
 
 	public static <T> T unsafeGet(ThrowSupplier<T> supplier) {
 		return impl.unsafeGet(supplier);
