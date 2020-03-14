@@ -99,6 +99,11 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 		}
 
 		@Override
+		public void removeChild(Node child) {
+			node.removeChild(child);
+		}
+
+		@Override
 		public String getName() {
 			return name;
 		}
