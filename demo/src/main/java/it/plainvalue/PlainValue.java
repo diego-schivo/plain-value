@@ -1,19 +1,33 @@
 package it.plainvalue;
 
 import java.util.function.Supplier;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class PlainValue {
 
 	protected static Impl impl = new Impl();
+
+	public static String substringBeforeLast(String str, int ch) {
+		return impl.substringBeforeLast(str, ch);
+	}
+
+	public static String substringAfterLast(String str, int ch) {
+		return impl.substringAfterLast(str, ch);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Iterable<String> split(String str, int ch) {
+		return impl.from(impl.split(str, ch)).to(Iterable.class);
+	}
 
 	@SuppressWarnings("unchecked")
 	public static <T> T[] array(T... elements) {
 		return elements;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static Iterable<String> split(String str, int ch) {
-		return impl.from(impl.split(str, ch)).to(Iterable.class);
+	public static <T> Stream<T> stream(Iterable<T> iterable) {
+		return StreamSupport.stream(iterable.spliterator(), false);
 	}
 
 	public static <T, U> U convert(T[] array, Class<U> class1) {

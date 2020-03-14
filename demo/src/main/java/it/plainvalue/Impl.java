@@ -7,6 +7,28 @@ import java.util.function.Supplier;
 
 class Impl {
 
+	String substringBeforeLast(String str, int ch) {
+		if (str == null) {
+			return null;
+		}
+		int index = str.lastIndexOf(ch);
+		if (index == -1) {
+			return null;
+		}
+		return str.substring(0, index);
+	}
+
+	String substringAfterLast(String str, int ch) {
+		if (str == null) {
+			return null;
+		}
+		int index = str.lastIndexOf(ch);
+		if (index == -1) {
+			return null;
+		}
+		return str.substring(index + 1);
+	}
+
 	Supplier<String> split(String str, int ch) {
 		if (str == null) {
 			return null;
