@@ -4,7 +4,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-interface PlainValue {
+public interface PlainValue {
 
 	Impl impl = new Impl();
 

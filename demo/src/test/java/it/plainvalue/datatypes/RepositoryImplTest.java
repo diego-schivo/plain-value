@@ -47,12 +47,15 @@ public class RepositoryImplTest {
 
 	@Test
 	public void testPutContent() {
-		Object id = repository.putContent(null);
-		assertNull(id);
+		Object id1 = repository.putContent(null);
+		assertNull(id1);
 
 		Content content = repository.newContent();
-		id = repository.putContent(content);
-		assertNotNull(id);
-		assertEquals(id, content.getId());
+		Object id2 = repository.putContent(content);
+		assertNotNull(id2);
+		assertEquals(id2, content.getId());
+
+		Object id3 = repository.putContent(content);
+		assertEquals(id2, id3);
 	}
 }
