@@ -1,10 +1,11 @@
 package it.plainvalue.datatypes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +19,7 @@ public class RepositoryImplTest {
 	@BeforeEach
 	public void initRepository() {
 		repository = new RepositoryImpl<Content>(ContentImpl.class);
-	}
-
-	@AfterEach
-	public void clearContents() {
-		repository.contents.clear();
+		repository.contents.put(new Object(), new ContentImpl());
 	}
 
 	@Test
@@ -57,5 +54,15 @@ public class RepositoryImplTest {
 
 		Object id3 = repository.putContent(content);
 		assertEquals(id2, id3);
+	}
+
+	@Test
+	public void testRemoveContent() {
+		assertFalse(repository.removeContent(null));
+		assertFalse(repository.removeContent(new Object()));
+		assertEquals(1, repository.contents.size());
+
+		assertTrue(repository.removeContent(repository.contents.keySet().iterator().next()));
+		assertEquals(0, repository.contents.size());
 	}
 }

@@ -5,8 +5,8 @@ import static it.plainvalue.PlainValue.unsafeGet;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.plainvalue.datatypes.Repository.Content;
 import it.plainvalue.datatypes.Impl.ItemImpl;
+import it.plainvalue.datatypes.Repository.Content;
 
 class RepositoryImpl<T extends Content> implements Repository<T> {
 
@@ -36,6 +36,14 @@ class RepositoryImpl<T extends Content> implements Repository<T> {
 		}
 		contents.put(content.getId(), content);
 		return content.getId();
+	}
+
+	@Override
+	public boolean removeContent(Object id) {
+		if (id == null) {
+			return false;
+		}
+		return contents.remove(id) != null;
 	}
 
 	@Override
