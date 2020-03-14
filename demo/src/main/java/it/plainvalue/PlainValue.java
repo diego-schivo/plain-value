@@ -97,4 +97,28 @@ public class PlainValue {
 	interface To<T> {
 		<U> U to(Class<U> class1);
 	}
+
+	public static Supplier<String> split(String str, int ch) {
+		if (str == null) {
+			return null;
+		}
+		return new Supplier<String>() {
+
+			int fromIndex;
+
+			@Override
+			public String get() {
+				if (fromIndex > str.length()) {
+					return null;
+				}
+				int toIndex = str.indexOf(ch, fromIndex);
+				if (toIndex == -1) {
+					toIndex = str.length();
+				}
+				String substr = str.substring(fromIndex, toIndex);
+				fromIndex = toIndex + 1;
+				return substr;
+			}
+		};
+	}
 }
