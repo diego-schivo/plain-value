@@ -6,13 +6,16 @@ import static it.plainvalue.PlainValue.split;
 import static it.plainvalue.PlainValue.stream;
 import static it.plainvalue.PlainValue.substringAfterLast;
 import static it.plainvalue.PlainValue.substringBeforeLast;
+import static it.plainvalue.PlainValue.unsafeGet;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +38,9 @@ public class PlainValueTest {
 	@Test
 	public void testSplit() {
 		Iterable<String> strings = split(null, '/');
-		assertNull(strings);
+		assertIterableEquals(Collections.emptySet(), strings);
+
+		assertThrows(NoSuchElementException.class, () -> split(null, '/').iterator().next());
 
 		strings = split("", '/');
 		assertIterableEquals(Arrays.asList(""), strings);
@@ -75,5 +80,12 @@ public class PlainValueTest {
 
 		Iterable<String> strings = convert(array("foo", "bar", "baz"), Iterable.class);
 		assertIterableEquals(Arrays.asList("foo", "bar", "baz"), strings);
+	}
+
+	@Test
+	public void testUnsafeGet() {
+		assertNull(unsafeGet(() -> null));
+		assertEquals("foo", unsafeGet(() -> "foo"));
+		assertThrows(RuntimeException.class, () -> unsafeGet(() -> "foo".substring(4)));
 	}
 }

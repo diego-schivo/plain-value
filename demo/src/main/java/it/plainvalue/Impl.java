@@ -1,5 +1,6 @@
 package it.plainvalue;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -35,7 +36,7 @@ class Impl {
 
 	Iterable<String> split(String str, int ch) {
 		if (str == null) {
-			return null;
+			return Collections.emptySet();
 		}
 		return () -> new Iterator<String>() {
 
