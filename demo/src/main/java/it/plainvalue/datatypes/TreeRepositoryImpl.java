@@ -13,7 +13,7 @@ import it.plainvalue.datatypes.TreeRepository.NodeContent;
 
 public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T> implements TreeRepository<T> {
 
-	Tree<T> tree;
+	TreeImpl<T> tree;
 
 	public TreeRepositoryImpl(Class<? extends T> contentClass) {
 		super(contentClass);
@@ -52,6 +52,16 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 	@Override
 	public Object putContent(T content) {
 		return putContent(content, null);
+	}
+
+	@Override
+	public boolean removeContent(Object id) {
+		T content = contents.get(id);
+		if (!super.removeContent(id)) {
+			return false;
+		}
+		tree.removeNode(content);
+		return true;
 	}
 
 	interface ModifiableNodeContent extends NodeContent, ModifiableNode {

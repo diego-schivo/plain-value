@@ -17,7 +17,7 @@ class TreeImpl<T extends Node> implements Tree<T> {
 
 	TreeImpl(Class<? extends T> nodeClass) {
 		this.nodeClass = nodeClass;
-		clear();
+		root = unsafeGet(() -> nodeClass.newInstance());
 	}
 
 	@Override
@@ -44,8 +44,12 @@ class TreeImpl<T extends Node> implements Tree<T> {
 	}
 
 	@Override
-	public void clear() {
-		root = unsafeGet(() -> nodeClass.newInstance());
+	public void removeNode(T node) {
+		if (node == null || node.getParent() == null) {
+			return;
+		}
+		((ModifiableNode) node.getParent()).removeChild(node);
+		((ModifiableNode) node).setParent(null);
 	}
 
 	interface ModifiableNode extends Node {
