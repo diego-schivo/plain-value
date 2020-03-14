@@ -88,10 +88,10 @@ class Impl {
 			@Override
 			@SuppressWarnings("unchecked")
 			public <U> U to(Class<U> class1) {
-				if (array == null) {
-					return null;
-				}
 				if (Objects.equals(class1, Iterator.class)) {
+					if (array == null) {
+						return (U) Collections.emptyIterator();
+					}
 					return (U) new Iterator<T>() {
 
 						int index;

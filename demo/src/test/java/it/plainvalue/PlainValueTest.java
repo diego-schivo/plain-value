@@ -80,11 +80,16 @@ public class PlainValueTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void testConvert() {
-		Iterable<Object> objects = convert((Object[]) null, Iterable.class);
-		assertNull(objects);
+		Iterator<Object> objects1 = convert((Object[]) null, Iterator.class);
+		assertThrows(NoSuchElementException.class, () -> {
+			objects1.next();
+		});
 
-		objects = convert(new Object[] { null }, Iterable.class);
-		assertIterableEquals(Collections.singleton(null), objects);
+		Iterable<Object> objects2 = convert((Object[]) null, Iterable.class);
+		assertIterableEquals(Collections.emptySet(), objects2);
+
+		Iterable<Object> objects3 = convert(new Object[] { null }, Iterable.class);
+		assertIterableEquals(Collections.singleton(null), objects3);
 
 		Iterable<String> strings = convert(array("foo", "bar", "baz"), Iterable.class);
 		assertIterableEquals(Arrays.asList("foo", "bar", "baz"), strings);
