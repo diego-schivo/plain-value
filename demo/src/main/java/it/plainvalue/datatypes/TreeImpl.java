@@ -38,7 +38,7 @@ class TreeImpl<T extends Node> implements Tree<T> {
 			parent = getRoot();
 		}
 		if (node.getParent() != null) {
-			// TODO
+			((ModifiableNode) node.getParent()).removeChild(node);
 		}
 		((ModifiableNode) node).setParent(parent);
 		((ModifiableNode) parent).addChild(node);
@@ -54,6 +54,8 @@ class TreeImpl<T extends Node> implements Tree<T> {
 		void setParent(Node parent);
 
 		void addChild(Node child);
+
+		void removeChild(Node child);
 	}
 
 	static class NodeImpl extends ItemImpl implements ModifiableNode {
@@ -83,6 +85,14 @@ class TreeImpl<T extends Node> implements Tree<T> {
 				return;
 			}
 			children.add(child);
+		}
+
+		@Override
+		public void removeChild(Node child) {
+			if (child == null) {
+				return;
+			}
+			children.remove(child);
 		}
 	}
 }

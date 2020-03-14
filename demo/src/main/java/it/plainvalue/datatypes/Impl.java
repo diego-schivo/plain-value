@@ -1,6 +1,6 @@
 package it.plainvalue.datatypes;
 
-class Impl {
+abstract class Impl {
 
 	interface ModifiableItem extends Item {
 
