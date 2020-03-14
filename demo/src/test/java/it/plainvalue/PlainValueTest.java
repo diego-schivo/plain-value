@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -104,6 +105,8 @@ public class PlainValueTest {
 
 		Iterable<Object> strings2 = convert(Arrays.stream(array("foo", "bar")), Iterable.class);
 		assertIterableEquals(Arrays.asList("foo", "bar"), strings2);
+
+		assertNull(convert(Arrays.stream(array("foo", "bar")), Collection.class));
 	}
 
 	@Test
