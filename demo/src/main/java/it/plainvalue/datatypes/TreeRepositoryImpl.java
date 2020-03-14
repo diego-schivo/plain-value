@@ -1,4 +1,4 @@
-package it.plainvalue.datatypes.impl;
+package it.plainvalue.datatypes;
 
 import static it.plainvalue.PlainValue.find;
 import static it.plainvalue.PlainValue.split;
@@ -6,17 +6,12 @@ import static it.plainvalue.PlainValue.stream;
 
 import java.util.Objects;
 
-import it.plainvalue.datatypes.Tree;
 import it.plainvalue.datatypes.Tree.Node;
-import it.plainvalue.datatypes.TreeRepository;
+import it.plainvalue.datatypes.TreeImpl.ModifiableNode;
+import it.plainvalue.datatypes.TreeImpl.NodeImpl;
 import it.plainvalue.datatypes.TreeRepository.NodeContent;
-import it.plainvalue.datatypes.impl.TreeImpl.NodeImpl;
 
 public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T> implements TreeRepository<T> {
-
-	public static TreeRepositoryImpl<NodeContent> newTreeRepository() {
-		return new TreeRepositoryImpl<NodeContent>(NodeContentImpl.class);
-	}
 
 	Tree<T> tree;
 
@@ -62,13 +57,25 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 	}
 
 	@Override
+	public T newContent(String name) {
+		T content = super.newContent();
+		((ModifiableNodeContent) content).setName(name);
+		return content;
+	}
+
+	@Override
 	public Object putContent(T content) {
 		return putContent(content, null);
 	}
 
-	static class NodeContentImpl extends ContentImpl implements NodeContent {
+	interface ModifiableNodeContent extends NodeContent, ModifiableNode {
 
-		Node node = new NodeImpl();
+		void setName(String name);
+	}
+
+	static class NodeContentImpl extends ContentImpl implements ModifiableNodeContent {
+
+		NodeImpl node = new NodeImpl();
 		String name;
 
 		@Override

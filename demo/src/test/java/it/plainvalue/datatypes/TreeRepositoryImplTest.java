@@ -1,4 +1,4 @@
-package it.plainvalue.datatypes.impl;
+package it.plainvalue.datatypes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,10 +8,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import it.plainvalue.datatypes.TreeRepository.NodeContent;
+import it.plainvalue.datatypes.TreeRepositoryImpl.NodeContentImpl;
 
 public class TreeRepositoryImplTest {
 
-	TreeRepositoryImpl<NodeContent> repository = TreeRepositoryImpl.newTreeRepository();
+	TreeRepositoryImpl<NodeContent> repository = new TreeRepositoryImpl<NodeContent>(NodeContentImpl.class);
 
 	@AfterEach
 	public void clearContents() {
@@ -32,8 +33,7 @@ public class TreeRepositoryImplTest {
 		NodeContent content1 = repository.getContentByPath(null);
 		assertNull(content1);
 
-		NodeContent content2 = repository.newContent();
-		content2.setName("foo");
+		NodeContent content2 = repository.newContent("foo");
 		repository.putContent(content2);
 
 		NodeContent content3 = repository.getContentByPath("/foo");
@@ -46,14 +46,12 @@ public class TreeRepositoryImplTest {
 		Object id1 = repository.putContent(null, null);
 		assertNull(id1);
 
-		NodeContent content2 = repository.newContent();
-		content2.setName("foo");
+		NodeContent content2 = repository.newContent("foo");
 		Object id2 = repository.putContent(content2, null);
 		assertNotNull(id2);
 		assertEquals(id2, content2.getId());
 
-		NodeContent content3 = repository.newContent();
-		content3.setName("bar");
+		NodeContent content3 = repository.newContent("bar");
 		Object id3 = repository.putContent(content3, content2);
 		assertNotNull(id3);
 		assertEquals(id3, content3.getId());

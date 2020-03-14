@@ -1,6 +1,7 @@
 package it.plainvalue.datatypes;
 
 import it.plainvalue.datatypes.Repository.Content;
+import it.plainvalue.datatypes.RepositoryImpl.ContentImpl;
 
 public interface Repository<T extends Content> {
 
@@ -15,5 +16,9 @@ public interface Repository<T extends Content> {
 		Object getId();
 
 		void setId(Object id);
+	}
+
+	static Repository<Content> newRepository() {
+		return new RepositoryImpl<Content>(ContentImpl.class);
 	}
 }

@@ -1,6 +1,7 @@
 package it.plainvalue.datatypes;
 
 import it.plainvalue.datatypes.Tree.Node;
+import it.plainvalue.datatypes.TreeImpl.NodeImpl;
 
 public interface Tree<T extends Node> {
 
@@ -16,10 +17,10 @@ public interface Tree<T extends Node> {
 
 		Node getParent();
 
-		void setParent(Node parent);
-
 		Iterable<Node> getChildren();
+	}
 
-		void addChild(Node child);
+	static Tree<Node> newTree() {
+		return new TreeImpl<Node>(NodeImpl.class);
 	}
 }

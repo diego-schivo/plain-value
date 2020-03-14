@@ -1,4 +1,4 @@
-package it.plainvalue.datatypes.impl;
+package it.plainvalue.datatypes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import it.plainvalue.datatypes.Repository.Content;
-import it.plainvalue.datatypes.impl.RepositoryImpl.ContentImpl;
+import it.plainvalue.datatypes.RepositoryImpl.ContentImpl;
 
 public class RepositoryImplTest {
 

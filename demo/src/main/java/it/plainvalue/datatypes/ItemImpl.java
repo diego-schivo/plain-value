@@ -1,8 +1,6 @@
-package it.plainvalue.datatypes.impl;
+package it.plainvalue.datatypes;
 
-import it.plainvalue.datatypes.Item;
-
-public class ItemImpl implements Item {
+class ItemImpl implements Item {
 
 	Object value;
 

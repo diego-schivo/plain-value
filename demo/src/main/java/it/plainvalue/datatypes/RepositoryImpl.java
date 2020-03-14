@@ -1,18 +1,13 @@
-package it.plainvalue.datatypes.impl;
+package it.plainvalue.datatypes;
 
 import static it.plainvalue.PlainValue.unsafeGet;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import it.plainvalue.datatypes.Repository;
 import it.plainvalue.datatypes.Repository.Content;
 
-public class RepositoryImpl<T extends Content> implements Repository<T> {
-
-	public static RepositoryImpl<Content> newRepository() {
-		return new RepositoryImpl<Content>(ContentImpl.class);
-	}
+class RepositoryImpl<T extends Content> implements Repository<T> {
 
 	Class<? extends T> contentClass;
 
