@@ -15,8 +15,4 @@ public interface Repository<T extends Content> {
 
 		Object getId();
 	}
-
-	static Repository<Content> newRepository() {
-		return new RepositoryImpl<Content>(ContentImpl.class);
-	}
 }

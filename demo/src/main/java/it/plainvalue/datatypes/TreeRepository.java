@@ -18,8 +18,4 @@ public interface TreeRepository<T extends NodeContent> extends Repository<T> {
 
 		String getName();
 	}
-
-	static TreeRepository<NodeContent> newTreeRepository() {
-		return new TreeRepositoryImpl<NodeContent>(NodeContentImpl.class);
-	}
 }

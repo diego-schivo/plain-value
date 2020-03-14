@@ -1,6 +1,6 @@
 package it.plainvalue.datatypes;
 
-class Todo {
+class Impl {
 
 	interface ModifiableItem extends Item {
 

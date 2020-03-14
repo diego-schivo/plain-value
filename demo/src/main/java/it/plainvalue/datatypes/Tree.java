@@ -19,8 +19,4 @@ public interface Tree<T extends Node> {
 
 		Iterable<Node> getChildren();
 	}
-
-	static Tree<Node> newTree() {
-		return new TreeImpl<Node>(NodeImpl.class);
-	}
 }

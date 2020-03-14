@@ -5,7 +5,7 @@ import static it.plainvalue.PlainValue.unsafeGet;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.plainvalue.datatypes.Todo.ItemImpl;
+import it.plainvalue.datatypes.Impl.ItemImpl;
 import it.plainvalue.datatypes.Tree.Node;
 
 class TreeImpl<T extends Node> implements Tree<T> {
