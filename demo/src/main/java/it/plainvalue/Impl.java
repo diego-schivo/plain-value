@@ -59,6 +59,15 @@ class Impl {
 				if (Objects.equals(class1, Iterator.class)) {
 					return (U) from(to(Supplier.class)).to(Iterator.class);
 				}
+				if (Objects.equals(class1, Iterable.class)) {
+					return (U) new Iterable<T>() {
+
+						@Override
+						public Iterator<T> iterator() {
+							return (Iterator<T>) to(Iterator.class);
+						}
+					};
+				}
 				return null;
 			}
 		};
