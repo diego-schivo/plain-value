@@ -45,9 +45,9 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 		if (path == null || !path.startsWith("/")) {
 			return null;
 		}
-		return find(tree.getRoot(), split(path.substring(1), '/'),
-				(node, name) -> stream((Iterable<T>) node.getChildren()).filter(child -> {
-					return Objects.equals(child.getName(), name);
+		return (T) find((Node) tree.getRoot(), split(path.substring(1), '/'),
+				(node, name) -> stream(node.getChildren()).filter(child -> {
+					return Objects.equals(((T) child).getName(), name);
 				}).findFirst().orElse(null));
 	}
 
