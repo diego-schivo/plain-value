@@ -25,15 +25,6 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 		return tree.getRoot();
 	}
 
-//	@Override
-//	public Object putContent(T content) {
-//		Object id = super.putContent(content);
-//		List<String> list = stream(iterable(content, c -> (T) c.getParent())).map(c -> c.getName()).collect(Collectors.toList());
-//		Collections.reverse(list);
-//		String path = "/" + list.stream().collect(Collectors.joining("/"));
-//		return id;
-//	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public T getContentByPath(String path) {
@@ -76,6 +67,7 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 	static class NodeContentImpl extends ContentImpl implements ModifiableNodeContent {
 
 		NodeImpl node = new NodeImpl();
+
 		String name;
 
 		@Override

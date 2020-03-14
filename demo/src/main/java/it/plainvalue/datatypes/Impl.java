@@ -1,6 +1,25 @@
 package it.plainvalue.datatypes;
 
-abstract class Impl {
+import it.plainvalue.datatypes.Repository.Content;
+import it.plainvalue.datatypes.RepositoryImpl.ContentImpl;
+import it.plainvalue.datatypes.Tree.Node;
+import it.plainvalue.datatypes.TreeImpl.NodeImpl;
+import it.plainvalue.datatypes.TreeRepository.NodeContent;
+import it.plainvalue.datatypes.TreeRepositoryImpl.NodeContentImpl;
+
+class Impl {
+
+	Tree<Node> newTree() {
+		return new TreeImpl<Node>(NodeImpl.class);
+	}
+
+	Repository<Content> newRepository() {
+		return new RepositoryImpl<Content>(ContentImpl.class);
+	}
+
+	TreeRepository<NodeContent> newTreeRepository() {
+		return new TreeRepositoryImpl<NodeContent>(NodeContentImpl.class);
+	}
 
 	interface ModifiableItem extends Item {
 

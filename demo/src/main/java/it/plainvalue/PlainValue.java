@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 public abstract class PlainValue {
 
-	protected static Impl impl = new Impl();
+	static Impl impl = new Impl();
 
 	public static String substringBeforeLast(String str, int ch) {
 		return impl.substringBeforeLast(str, ch);
