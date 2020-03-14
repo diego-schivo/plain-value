@@ -1,7 +1,10 @@
 package it.plainvalue.datatypes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,10 +21,12 @@ public class TreeImplTest {
 	}
 
 	@Test
-	public void testAddNode() {
+	public void testPutNode() {
+		tree.putNode(null, null);
+
 		Node node = tree.newNode();
-		tree.putNode(node, tree.getRoot());
+		tree.putNode(node, null);
 		assertEquals(tree.getRoot(), node.getParent());
-		assertEquals(tree.getRoot().getChildren().iterator().next(), node);
+		assertIterableEquals(tree.getRoot().getChildren(), Collections.singleton(node));
 	}
 }

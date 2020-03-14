@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.plainvalue.datatypes.Repository.Content;
+import it.plainvalue.datatypes.Todo.ItemImpl;
 
 class RepositoryImpl<T extends Content> implements Repository<T> {
 
