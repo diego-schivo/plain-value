@@ -10,13 +10,13 @@ import it.plainvalue.datatypes.Repository.Content;
 
 public class RepositoryImpl<T extends Content> implements Repository<T> {
 
-	public static RepositoryImpl<Content> newInstance() {
+	public static RepositoryImpl<Content> newRepository() {
 		return new RepositoryImpl<Content>(ContentImpl.class);
 	}
 
 	Class<? extends T> contentClass;
 
-	Map<Object, T> map = new HashMap<>();
+	Map<Object, T> contents = new HashMap<>();
 
 	protected RepositoryImpl(Class<? extends T> contentClass) {
 		this.contentClass = contentClass;
@@ -27,19 +27,18 @@ public class RepositoryImpl<T extends Content> implements Repository<T> {
 		if (id == null) {
 			return null;
 		}
-		return map.get(id);
+		return contents.get(id);
 	}
 
 	@Override
-	public Object putContent(T content) {
+	public void putContent(T content) {
 		if (content == null) {
-			return null;
+			return;
 		}
 		if (content.getId() == null) {
 			content.setId(new Object());
 		}
-		map.put(content.getId(), content);
-		return content.getId();
+		contents.put(content.getId(), content);
 	}
 
 	@Override

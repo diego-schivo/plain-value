@@ -3,7 +3,11 @@ package it.plainvalue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 class Impl {
 
@@ -29,7 +33,12 @@ class Impl {
 		return str.substring(index + 1);
 	}
 
-	Supplier<String> split(String str, int ch) {
+	@SuppressWarnings("unchecked")
+	Iterable<String> split(String str, int ch) {
+		return from(split0(str, ch)).to(Iterable.class);
+	}
+
+	Supplier<String> split0(String str, int ch) {
 		if (str == null) {
 			return null;
 		}
@@ -51,6 +60,71 @@ class Impl {
 				return substr;
 			}
 		};
+	}
+
+	@SuppressWarnings("unchecked")
+	<T> T[] array(T... elements) {
+		return elements;
+	}
+
+	<T> Stream<T> stream(Iterable<T> iterable) {
+		if (iterable == null) {
+			return Stream.empty();
+		}
+		return StreamSupport.stream(iterable.spliterator(), false);
+	}
+
+	<T, U> U convert(T[] array, Class<U> class1) {
+		return from(array).to(class1);
+	}
+
+	<T, U> U convert(Supplier<T> supplier, Class<U> class1) {
+		return from(supplier).to(class1);
+	}
+
+	<T> T unsafeGet(ThrowSupplier<T> supplier) {
+		try {
+			return supplier.get();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	<T> Iterable<T> iterable(T first, Function<T, T> function) {
+		Objects.requireNonNull(function);
+		return () -> new Iterator<T>() {
+			T element = first;
+
+			@Override
+			public boolean hasNext() {
+				return element != null;
+			}
+
+			@Override
+			public T next() {
+				if (element == null) {
+					throw new NoSuchElementException();
+				}
+				T next = element;
+				element = function.apply(element);
+				return next;
+			}
+		};
+	}
+
+	<T, U> T find(T start, Iterable<U> path, BiFunction<T, U, T> next) {
+		Objects.requireNonNull(next);
+		if (path == null) {
+			return null;
+		}
+		T t = start;
+		for (U u : path) {
+			t = next.apply(t, u);
+			if (t == null) {
+				break;
+			}
+		}
+		return t;
 	}
 
 	<T> To<?> from(T[] array) {

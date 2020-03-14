@@ -1,5 +1,6 @@
 package it.plainvalue.datatypes.impl;
 
+import static it.plainvalue.PlainValue.find;
 import static it.plainvalue.PlainValue.split;
 import static it.plainvalue.PlainValue.stream;
 
@@ -13,6 +14,10 @@ import it.plainvalue.datatypes.impl.TreeImpl.NodeImpl;
 
 public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T> implements TreeRepository<T> {
 
+	public static TreeRepositoryImpl<NodeContent> newTreeRepository() {
+		return new TreeRepositoryImpl<NodeContent>(NodeContentImpl.class);
+	}
+
 	Tree<T> tree;
 
 	public TreeRepositoryImpl(Class<? extends T> contentClass) {
@@ -21,26 +26,35 @@ public class TreeRepositoryImpl<T extends NodeContent> extends RepositoryImpl<T>
 	}
 
 	@Override
+	public T getRoot() {
+		return tree.getRoot();
+	}
+
+//	@Override
+//	public Object putContent(T content) {
+//		Object id = super.putContent(content);
+//		List<String> list = stream(iterable(content, c -> (T) c.getParent())).map(c -> c.getName()).collect(Collectors.toList());
+//		Collections.reverse(list);
+//		String path = "/" + list.stream().collect(Collectors.joining("/"));
+//		return id;
+//	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public T getContentByPath(String path) {
-		if (path == null) {
+		if (path == null || !path.startsWith("/")) {
 			return null;
 		}
-		T node = null;
-		for (String name : split(path, '/')) {
-			if (node == null) {
-				node = Objects.equals(name, "") ? tree.getRoot() : null;
-			} else {
-				node = stream((Iterable<T>) node.getChildren()).filter(child -> {
+		return find(tree.getRoot(), split(path.substring(1), '/'),
+				(node, name) -> stream((Iterable<T>) node.getChildren()).filter(child -> {
 					return Objects.equals(child.getName(), name);
-				}).findFirst().orElse(null);
-			}
+				}).findFirst().orElse(null));
+	}
 
-			if (node == null) {
-				break;
-			}
-		}
-		return node;
+	@Override
+	public void putContent(T content, T parent) {
+		super.putContent(content);
+		tree.putNode(content, parent);
 	}
 
 	static class NodeContentImpl extends ContentImpl implements NodeContent {

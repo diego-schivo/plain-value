@@ -10,7 +10,7 @@ import it.plainvalue.datatypes.Tree.Node;
 
 public class TreeImpl<T extends Node> implements Tree<T> {
 
-	public static TreeImpl<Node> newInstance() {
+	public static TreeImpl<Node> newTree() {
 		return new TreeImpl<Node>(NodeImpl.class);
 	}
 
@@ -29,11 +29,17 @@ public class TreeImpl<T extends Node> implements Tree<T> {
 	}
 
 	@Override
-	public T addNode(T parent) {
-		T node = unsafeGet(() -> nodeClass.newInstance());
+	public void putNode(T node, T parent) {
+		if (node.getParent() != null) {
+			// TODO
+		}
 		node.setParent(parent);
 		parent.addChild(node);
-		return node;
+	}
+
+	@Override
+	public T newNode() {
+		return unsafeGet(() -> nodeClass.newInstance());
 	}
 
 	static class NodeImpl extends ItemImpl implements Node {

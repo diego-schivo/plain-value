@@ -1,8 +1,9 @@
 package it.plainvalue;
 
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class PlainValue {
 
@@ -16,36 +17,36 @@ public class PlainValue {
 		return impl.substringAfterLast(str, ch);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static Iterable<String> split(String str, int ch) {
-		return impl.from(impl.split(str, ch)).to(Iterable.class);
+		return impl.split(str, ch);
 	}
 
 	@SuppressWarnings("unchecked")
 	public static <T> T[] array(T... elements) {
-		return elements;
+		return impl.array(elements);
 	}
 
 	public static <T> Stream<T> stream(Iterable<T> iterable) {
-		if (iterable == null) {
-			return Stream.empty();
-		}
-		return StreamSupport.stream(iterable.spliterator(), false);
+		return impl.stream(iterable);
 	}
 
 	public static <T, U> U convert(T[] array, Class<U> class1) {
-		return impl.from(array).to(class1);
+		return impl.convert(array, class1);
 	}
 
 	public static <T, U> U convert(Supplier<T> supplier, Class<U> class1) {
-		return impl.from(supplier).to(class1);
+		return impl.convert(supplier, class1);
 	}
 
 	public static <T> T unsafeGet(ThrowSupplier<T> supplier) {
-		try {
-			return supplier.get();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		return impl.unsafeGet(supplier);
+	}
+
+	public static <T> Iterable<T> iterable(T first, Function<T, T> function) {
+		return impl.iterable(first, function);
+	}
+
+	public static <T, U> T find(T start, Iterable<U> path, BiFunction<T, U, T> next) {
+		return impl.find(start, path, next);
 	}
 }
