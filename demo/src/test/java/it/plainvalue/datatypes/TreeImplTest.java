@@ -1,10 +1,8 @@
 package it.plainvalue.datatypes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,14 +14,22 @@ public class TreeImplTest {
 
 	TreeImpl<Node> tree;
 
+	List<Node> rootChildren;
+
 	@BeforeEach
 	public void initTree() {
 		tree = new TreeImpl<Node>(NodeImpl.class);
+
+		NodeImpl node = new NodeImpl();
+		node.setParent(tree.root);
+
+		rootChildren = ((NodeImpl) tree.root).children;
+		rootChildren.add(node);
 	}
 
 	@Test
 	public void testGetRoot() {
-		assertNotNull(tree.getRoot());
+		assertEquals(tree.root, tree.getRoot());
 	}
 
 	@Test
@@ -32,9 +38,19 @@ public class TreeImplTest {
 
 		Node node = tree.newNode();
 		tree.putNode(node, null);
-		assertEquals(tree.getRoot(), node.getParent());
-		assertIterableEquals(tree.getRoot().getChildren(), Collections.singleton(node));
+		assertEquals(tree.root, node.getParent());
+		assertEquals(rootChildren.get(1), node);
 
 		tree.putNode(node, null);
+	}
+
+	@Test
+	public void testRemoveNode() {
+		tree.removeNode(null);
+		tree.removeNode(new NodeImpl());
+		assertEquals(1, rootChildren.size());
+
+		tree.removeNode(rootChildren.get(0));
+		assertEquals(0, rootChildren.size());
 	}
 }
