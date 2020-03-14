@@ -10,10 +10,10 @@ import it.plainvalue.datatypes.TreeRepository.NodeContent;
 
 public class TreeRepositoryImplTest {
 
+	TreeRepositoryImpl<NodeContent> repository = TreeRepositoryImpl.newTreeRepository();
+
 	@Test
 	public void test1() {
-		TreeRepositoryImpl<NodeContent> repository = TreeRepositoryImpl.newTreeRepository();
-
 		NodeContent foo = repository.newContent();
 		foo.setName("foo");
 		foo.setValue("Foo");

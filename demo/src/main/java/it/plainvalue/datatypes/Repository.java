@@ -6,7 +6,7 @@ public interface Repository<T extends Content> {
 
 	T getContent(Object id);
 
-	void putContent(T content);
+	Object putContent(T content);
 
 	T newContent();
 

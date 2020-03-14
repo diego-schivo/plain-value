@@ -31,14 +31,15 @@ public class RepositoryImpl<T extends Content> implements Repository<T> {
 	}
 
 	@Override
-	public void putContent(T content) {
+	public Object putContent(T content) {
 		if (content == null) {
-			return;
+			return null;
 		}
 		if (content.getId() == null) {
 			content.setId(new Object());
 		}
 		contents.put(content.getId(), content);
+		return content.getId();
 	}
 
 	@Override
