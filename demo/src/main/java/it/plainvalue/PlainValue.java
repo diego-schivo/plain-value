@@ -4,7 +4,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class PlainValue {
+public abstract class PlainValue {
 
 	protected static Impl impl = new Impl();
 
