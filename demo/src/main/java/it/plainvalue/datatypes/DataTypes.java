@@ -6,7 +6,7 @@ import it.plainvalue.datatypes.TreeRepository.NodeContent;
 
 public interface DataTypes {
 
-	static Impl impl = new Impl();
+	Impl impl = new Impl();
 
 	static Tree<Node> newTree() {
 		return impl.newTree();
