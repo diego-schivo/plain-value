@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
@@ -81,9 +82,7 @@ public class PlainValueTest {
 	@SuppressWarnings("unchecked")
 	public void testConvert() {
 		Iterator<Object> objects1 = convert((Object[]) null, Iterator.class);
-		assertThrows(NoSuchElementException.class, () -> {
-			objects1.next();
-		});
+		assertEquals(Collections.emptyIterator(), objects1);
 
 		Iterable<Object> objects2 = convert((Object[]) null, Iterable.class);
 		assertIterableEquals(Collections.emptySet(), objects2);
@@ -91,8 +90,14 @@ public class PlainValueTest {
 		Iterable<Object> objects3 = convert(new Object[] { null }, Iterable.class);
 		assertIterableEquals(Collections.singleton(null), objects3);
 
-		Iterable<String> strings = convert(array("foo", "bar", "baz"), Iterable.class);
-		assertIterableEquals(Arrays.asList("foo", "bar", "baz"), strings);
+		Iterable<String> strings = convert(array("foo", "bar"), Iterable.class);
+		assertIterableEquals(Arrays.asList("foo", "bar"), strings);
+
+		assertThrows(NoSuchElementException.class, () -> {
+			convert(array(), Iterator.class).next();
+		});
+
+		assertNull(convert(array("foo", "bar"), Stream.class));
 	}
 
 	@Test
