@@ -1,6 +1,7 @@
 package it.plainvalue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,9 +18,9 @@ public class RepositoryImplTest {
 			}
 		};
 		Object id = repository.addItem(item);
-		assertEquals("/foo", id);
+		assertNotNull(id);
 
-		Object item2 = repository.getItem("/foo");
+		Object item2 = repository.getItem(id);
 		assertEquals(item, item2);
 	}
 }

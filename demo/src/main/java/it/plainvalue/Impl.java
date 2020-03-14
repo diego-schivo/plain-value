@@ -79,7 +79,25 @@ class Impl {
 					};
 				}
 				if (Objects.equals(class1, Iterator.class)) {
-					return (U) from(to(Supplier.class)).to(Iterator.class);
+					return (U) new Iterator<T>() {
+
+						int index;
+
+						@Override
+						public boolean hasNext() {
+							return index < array.length;
+						}
+
+						@Override
+						public T next() {
+							if (index >= array.length) {
+								throw new NoSuchElementException();
+							}
+							T element = array[index];
+							index++;
+							return element;
+						}
+					};
 				}
 				if (Objects.equals(class1, Iterable.class)) {
 					return (U) new Iterable<T>() {
