@@ -40,7 +40,7 @@ public class HelloServletFunctionalTest {
 		MutableCapabilities sauceOpts = new MutableCapabilities();
 		sauceOpts.setCapability("username", sauceUserName);
 		sauceOpts.setCapability("accessKey", sauceAccessKey);
-		sauceOpts.setCapability("tunnel-identifier", travisJobNumber);
+		sauceOpts.setCapability("tunnelIdentifier", travisJobNumber);
 		sauceOpts.setCapability("seleniumVersion", "3.141.59");
         sauceOpts.setCapability("name", "4-best-practices");
         sauceOpts.setCapability("tags", Arrays.asList("sauceDemo", "demoTest", "module4", "javaTest"));
