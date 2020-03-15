@@ -40,15 +40,15 @@ public class HelloServletFunctionalTest {
 
 		ChromeOptions chromeOpts = new ChromeOptions();
 
+		String travisJobNumber = System.getenv("TRAVIS_JOB_NUMBER");
+		chromeOpts.setCapability("tunnel-identifier", travisJobNumber);
+
 		MutableCapabilities capabilities = new MutableCapabilities();
 		capabilities.setCapability("sauce:options", sauceOpts);
 		capabilities.setCapability("goog:chromeOptions", chromeOpts);
 		capabilities.setCapability("browserName", "chrome");
 		capabilities.setCapability("platformVersion", "Windows 10");
 		capabilities.setCapability("browserVersion", "latest");
-
-		String travisJobNumber = System.getenv("TRAVIS_JOB_NUMBER");
-		capabilities.setCapability("tunnel-identifier", travisJobNumber);
 
 		driver = new RemoteWebDriver(new URL(sauceURL), capabilities);
 	}
