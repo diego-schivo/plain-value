@@ -52,6 +52,7 @@ public class HelloServletFunctionalTest {
 		sauceOpts.setCapability("commandTimeout", 600);
 		sauceOpts.setCapability("idleTimeout", 1000);
 		sauceOpts.setCapability("build", travisBuildNumber != null ? travisBuildNumber : "plainValue");
+		sauceOpts.setCapability("startConnect", false);
 
 		ChromeOptions chromeOpts = new ChromeOptions();
 		chromeOpts.setExperimentalOption("w3c", true);
