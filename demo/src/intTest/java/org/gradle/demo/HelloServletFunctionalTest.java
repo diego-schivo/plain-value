@@ -31,12 +31,14 @@ public class HelloServletFunctionalTest {
 
 		String sauceUserName = System.getenv("SAUCE_USERNAME");
 		String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
+		String sauceTunnelIdentifier = System.getenv("TRAVIS_JOB_NUMBER");
 		// String sauceURL = "https://ondemand.saucelabs.com/wd/hub";
 		String sauceURL = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
 
 		MutableCapabilities sauceOpts = new MutableCapabilities();
 		sauceOpts.setCapability("username", sauceUserName);
 		sauceOpts.setCapability("accessKey", sauceAccessKey);
+		sauceOpts.setCapability("tunnel-identifier", sauceTunnelIdentifier);
 
 		ChromeOptions chromeOpts = new ChromeOptions();
 
