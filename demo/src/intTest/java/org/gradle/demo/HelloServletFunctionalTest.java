@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,6 +33,7 @@ public class HelloServletFunctionalTest {
 		String sauceUserName = System.getenv("SAUCE_USERNAME");
 		String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
 		String travisJobNumber = System.getenv("TRAVIS_JOB_NUMBER");
+		String travisBuildNumber = System.getenv("TRAVIS_BUILD_NUMBER");
 		String sauceURL = "https://ondemand.saucelabs.com/wd/hub";
 		// String sauceURL = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
 
@@ -41,22 +41,20 @@ public class HelloServletFunctionalTest {
 		sauceOpts.setCapability("username", sauceUserName);
 		sauceOpts.setCapability("accessKey", sauceAccessKey);
 
-		sauceOpts.setCapability("tunnel-identifier", travisJobNumber);
-		sauceOpts.setCapability("tunnelIdentifier", travisJobNumber);
+		if (travisJobNumber != null) {
+			sauceOpts.setCapability("tunnel-identifier", travisJobNumber);
+		}
 
 		sauceOpts.setCapability("seleniumVersion", "3.141.59");
-        sauceOpts.setCapability("name", "4-best-practices");
-        sauceOpts.setCapability("tags", Arrays.asList("sauceDemo", "demoTest", "module4", "javaTest"));
-        sauceOpts.setCapability("maxDuration", 3600);
-        sauceOpts.setCapability("commandTimeout", 600);
-        sauceOpts.setCapability("idleTimeout", 1000);
-        sauceOpts.setCapability("build", "Onboarding Sample App - Java-Junit5");
+		sauceOpts.setCapability("name", "plainValue");
+		sauceOpts.setCapability("tags", Arrays.asList("helloServlet"));
+		sauceOpts.setCapability("maxDuration", 3600);
+		sauceOpts.setCapability("commandTimeout", 600);
+		sauceOpts.setCapability("idleTimeout", 1000);
+		sauceOpts.setCapability("build", travisBuildNumber != null ? travisBuildNumber : "plainValue");
 
 		ChromeOptions chromeOpts = new ChromeOptions();
-
-		chromeOpts.setCapability("tunnel-identifier", travisJobNumber);
-		chromeOpts.setCapability("tunnelIdentifier", travisJobNumber);
-
+		chromeOpts.setExperimentalOption("w3c", true);
 
 		MutableCapabilities capabilities = new MutableCapabilities();
 		capabilities.setCapability("sauce:options", sauceOpts);
@@ -64,9 +62,6 @@ public class HelloServletFunctionalTest {
 		capabilities.setCapability("browserName", "chrome");
 		capabilities.setCapability("platformVersion", "Windows 10");
 		capabilities.setCapability("browserVersion", "latest");
-
-		capabilities.setCapability("tunnel-identifier", travisJobNumber);
-		capabilities.setCapability("tunnelIdentifier", travisJobNumber);
 
 		driver = new RemoteWebDriver(new URL(sauceURL), capabilities);
 	}
