@@ -11,7 +11,9 @@ plugins {
     id 'java'
 
     // Apply the application plugin to add support for building a CLI application.
-    id 'application'
+    // id 'application'
+    id 'war'
+    id "org.gretty" version "3.0.1"
 
     id 'jacoco'
 }
@@ -22,23 +24,58 @@ repositories {
     jcenter()
 }
 
+sourceSets {
+    intTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    intTestImplementation.extendsFrom implementation
+    intTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
 dependencies {
     // This dependency is used by the application.
-    implementation 'com.google.guava:guava:28.1-jre'
+    // implementation 'com.google.guava:guava:28.1-jre'
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0' 
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    // providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    
 
     // Use JUnit test framework
     // testImplementation 'junit:junit:4.12'
     testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+    intTestImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
 
-    testCompile "org.mockito:mockito-core:2.+"
+    // testCompile "org.mockito:mockito-core:2.+"
+    testCompile 'org.mockito:mockito-core:3.3.3'
+
+    intTestCompile 'org.junit.jupiter:junit-jupiter:5.6.0'
+    intTestCompile 'org.mockito:mockito-core:3.3.3'
+    intTestCompile 'io.github.bonigarcia:webdrivermanager:3.8.1' 
+    intTestCompile 'org.seleniumhq.selenium:selenium-java:3.141.59'
 }
 
-application {
+// application {
     // Define the main class for the application.
-    mainClassName = 'demo.App'
+    // mainClassName = 'demo.App'
+// }
+
+gretty {
+    scanInterval = 1 //Scan for changes every second
+    host = '0.0.0.0' //Enable network access from outside your local machine
+    // servletContainer = 'jetty7' //Use Jetty7 which is compatible with JDK6
+    servletContainer = 'jetty9'
+    managedClassReload = true //Activate spring-loaded class reloading
+    integrationTestTask = 'integrationTest'
+    // contextPath = '/'
 }
 
-test {
+// test {
+tasks.withType(Test) {
 	useJUnitPlatform()
 	testLogging {
 		events "passed", "skipped", "failed"
@@ -52,4 +89,14 @@ jacocoTestReport {
     }
 }
 
+task integrationTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.intTest.output.classesDirs
+    classpath = sourceSets.intTest.runtimeClasspath
+    shouldRunAfter test
+}
+
 check.dependsOn jacocoTestReport
+check.dependsOn integrationTest
