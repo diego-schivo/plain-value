@@ -2,15 +2,19 @@ package org.gradle.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class HelloServletFunctionalTest {
 
@@ -18,18 +22,40 @@ public class HelloServletFunctionalTest {
 
 	@BeforeAll
 	public static void setupClass() {
-		WebDriverManager.chromedriver().setup();
+		// WebDriverManager.chromedriver().setup();
 	}
 
 	@BeforeEach
-	public void setUp() {
-		driver = new ChromeDriver();
+	public void setUp() throws MalformedURLException {
+		// driver = new ChromeDriver();
+
+		String sauceUserName = System.getenv("SAUCE_USERNAME");
+		String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
+		// String sauceURL = "https://ondemand.saucelabs.com/wd/hub";
+		String sauceURL = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
+
+		MutableCapabilities sauceOpts = new MutableCapabilities();
+		sauceOpts.setCapability("username", sauceUserName);
+		sauceOpts.setCapability("accessKey", sauceAccessKey);
+
+		ChromeOptions chromeOpts = new ChromeOptions();
+
+		MutableCapabilities capabilities = new MutableCapabilities();
+		capabilities.setCapability("sauce:options", sauceOpts);
+		capabilities.setCapability("goog:chromeOptions", chromeOpts);
+		capabilities.setCapability("browserName", "chrome");
+		capabilities.setCapability("platformVersion", "Windows 10");
+		capabilities.setCapability("browserVersion", "latest");
+
+		driver = new RemoteWebDriver(new URL(sauceURL), capabilities);
 	}
 
 	@AfterEach
 	public void tearDown() {
-		if (driver != null)
+		if (driver != null) {
+			((JavascriptExecutor) driver).executeScript("sauce:job-result=" + ("passed"));
 			driver.quit();
+		}
 	}
 
 	@Test
