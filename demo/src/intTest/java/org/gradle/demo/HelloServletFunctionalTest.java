@@ -40,7 +40,10 @@ public class HelloServletFunctionalTest {
 		MutableCapabilities sauceOpts = new MutableCapabilities();
 		sauceOpts.setCapability("username", sauceUserName);
 		sauceOpts.setCapability("accessKey", sauceAccessKey);
+
+		sauceOpts.setCapability("tunnel-identifier", travisJobNumber);
 		sauceOpts.setCapability("tunnelIdentifier", travisJobNumber);
+
 		sauceOpts.setCapability("seleniumVersion", "3.141.59");
         sauceOpts.setCapability("name", "4-best-practices");
         sauceOpts.setCapability("tags", Arrays.asList("sauceDemo", "demoTest", "module4", "javaTest"));
@@ -51,12 +54,19 @@ public class HelloServletFunctionalTest {
 
 		ChromeOptions chromeOpts = new ChromeOptions();
 
+		chromeOpts.setCapability("tunnel-identifier", travisJobNumber);
+		chromeOpts.setCapability("tunnelIdentifier", travisJobNumber);
+
+
 		MutableCapabilities capabilities = new MutableCapabilities();
 		capabilities.setCapability("sauce:options", sauceOpts);
 		capabilities.setCapability("goog:chromeOptions", chromeOpts);
 		capabilities.setCapability("browserName", "chrome");
 		capabilities.setCapability("platformVersion", "Windows 10");
 		capabilities.setCapability("browserVersion", "latest");
+
+		capabilities.setCapability("tunnel-identifier", travisJobNumber);
+		capabilities.setCapability("tunnelIdentifier", travisJobNumber);
 
 		driver = new RemoteWebDriver(new URL(sauceURL), capabilities);
 	}
