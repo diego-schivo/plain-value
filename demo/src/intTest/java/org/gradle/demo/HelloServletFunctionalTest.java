@@ -34,8 +34,8 @@ public class HelloServletFunctionalTest {
 		String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
 		String travisJobNumber = System.getenv("TRAVIS_JOB_NUMBER");
 		String travisBuildNumber = System.getenv("TRAVIS_BUILD_NUMBER");
-		String sauceURL = "https://ondemand.saucelabs.com/wd/hub";
-		// String sauceURL = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
+		// String sauceURL = "https://ondemand.saucelabs.com/wd/hub";
+		String sauceURL = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
 
 		MutableCapabilities sauceOpts = new MutableCapabilities();
 		sauceOpts.setCapability("username", sauceUserName);
