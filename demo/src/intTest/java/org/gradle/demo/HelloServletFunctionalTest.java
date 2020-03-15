@@ -32,7 +32,7 @@ public class HelloServletFunctionalTest {
 
 		String sauceUserName = System.getenv("SAUCE_USERNAME");
 		String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
-		String travisJobNumber = System.getenv("TRAVIS_JOB_NUMBER");
+		String travisJobId = System.getenv("TRAVIS_JOB_ID");
 		String travisBuildNumber = System.getenv("TRAVIS_BUILD_NUMBER");
 		// String sauceURL = "https://ondemand.saucelabs.com/wd/hub";
 		String sauceURL = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
@@ -41,8 +41,8 @@ public class HelloServletFunctionalTest {
 		sauceOpts.setCapability("username", sauceUserName);
 		sauceOpts.setCapability("accessKey", sauceAccessKey);
 
-		if (travisJobNumber != null) {
-			sauceOpts.setCapability("tunnel-identifier", travisJobNumber);
+		if (travisJobId != null) {
+			sauceOpts.setCapability("tunnel-identifier", travisJobId);
 		}
 
 		sauceOpts.setCapability("seleniumVersion", "3.141.59");
