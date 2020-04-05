@@ -1,1 +1,1 @@
-https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+xdg-open index.html
