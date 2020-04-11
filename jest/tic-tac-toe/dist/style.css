@@ -1,0 +1,45 @@
+.tic-tac-toe,
+.tic-tac-toe .status,
+.tic-tac-toe .board,
+.tic-tac-toe .row {
+  display: inline-flex;
+  width: fit-content;
+}
+
+.tic-tac-toe {
+  align-items: center;
+}
+
+.tic-tac-toe .status,
+.tic-tac-toe .square {
+  font: 16px sans-serif;
+}
+
+.tic-tac-toe,
+.tic-tac-toe .board {
+  flex-direction: column;
+}
+
+.tic-tac-toe .square {
+  background-color: white;
+  border: 0;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  width: 40px;
+}
+
+.tic-tac-toe .row:nth-of-type(2) {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.tic-tac-toe .square:nth-of-type(2) {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+
+.tic-tac-toe .square:focus {
+  outline: none;
+}
