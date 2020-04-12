@@ -1,11 +1,22 @@
-const ticTacToe = require('../src/tic-tac-toe')
+import React from 'react'
+import { render, unmountComponentAtNode } from 'react-dom'
+import { act } from 'react-dom/test-utils'
 
-let container
+import TicTacToe from './tic-tac-toe'
 
+let container = null
 beforeEach(() => {
-  document.body.innerHTML = '<div class="tic-tac-toe"></div>'
-  container = document.querySelector('.tic-tac-toe')
-  ticTacToe(container)
+  container = document.createElement('div')
+  document.body.appendChild(container)
+  act(() => {
+    render(<TicTacToe />, container)
+  })
+})
+
+afterEach(() => {
+  unmountComponentAtNode(container)
+  container.remove()
+  container = null
 })
 
 test('status', () => {

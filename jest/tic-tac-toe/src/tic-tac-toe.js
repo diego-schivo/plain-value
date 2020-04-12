@@ -49,7 +49,7 @@ function ticTacToe(element) {
     winner = checks.some(check => check.every(([rowIndex2, squareIndex2]) => {
       const squareEl2 = board.querySelector(`.row:nth-child(${rowIndex2 + 1}) .square:nth-child(${squareIndex2 + 1})`)
       return squareEl2.innerHTML === player
-    })) ? player: null
+    })) ? player : null
     draw = !winner && Array.prototype.every.call(board.querySelectorAll('.square'), squareEl2 => squareEl2.innerHTML !== '')
     if (winner) {
       status.innerHTML = `${player} won`
