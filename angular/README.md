@@ -3,3 +3,5 @@ ng serve --open
 
 https://angular.io/guide/setup-local
 https://angular.io/tutorial/toh-pt0
+
+ng new tic-tac-toe

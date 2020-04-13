@@ -1,0 +1,20 @@
+<div class="tic-tac-toe">
+  <p class="status">{{status}}</p>
+  <div class="board" (click)="mark($event)">
+    <div class="row">
+      <button class="square">{{board[0][0]}}</button>
+      <button class="square">{{board[0][1]}}</button>
+      <button class="square">{{board[0][2]}}</button>
+    </div>
+    <div class="row">
+      <button class="square">{{board[1][0]}}</button>
+      <button class="square">{{board[1][1]}}</button>
+      <button class="square">{{board[1][2]}}</button>
+    </div>
+    <div class="row">
+      <button class="square">{{board[2][0]}}</button>
+      <button class="square">{{board[2][1]}}</button>
+      <button class="square">{{board[2][2]}}</button>
+    </div>
+  </div>
+</div>
