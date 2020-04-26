@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Quote {
 
 	private String type;
+
 	private Value value;
 
 	public String getType() {
@@ -26,6 +27,6 @@ public class Quote {
 
 	@Override
 	public String toString() {
-		return "{type: '" + type + "', value: " + value + "}";
+		return String.format("Quote[type='%s', value=%s]", type, value);
 	}
 }

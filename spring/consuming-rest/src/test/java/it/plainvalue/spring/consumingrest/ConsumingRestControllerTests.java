@@ -22,6 +22,6 @@ public class ConsumingRestControllerTests {
 	@Test
 	public void shouldReturnQuoteMessage() throws Exception {
 		mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk()).andExpect(
-				content().string(matchesRegex("quote=\\{type: 'success', value: \\{id: \\d+, quote: '.*?'\\}\\}")));
+				content().string(matchesRegex("Quote\\[type='success', value=Value\\[id=\\d+, quote='.*?'\\]\\]")));
 	}
 }

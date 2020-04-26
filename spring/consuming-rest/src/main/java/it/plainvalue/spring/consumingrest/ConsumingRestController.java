@@ -1,5 +1,7 @@
 package it.plainvalue.spring.consumingrest;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,6 @@ public class ConsumingRestController {
 	@GetMapping("/")
 	public String consume() {
 		Quote quote = restTemplate.getForObject("https://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-		return String.format("quote=%s", quote);
+		return Objects.toString(quote);
 	}
 }
