@@ -1,0 +1,1 @@
+Copy-Item "./build/*" -Destination "./src/main/webapp" -Recurse -force

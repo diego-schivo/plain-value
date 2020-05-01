@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>it.plainvalue.spring</groupId>
 	<artifactId>rest-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>rest-server</name>
 	<description>REST Server</description>
