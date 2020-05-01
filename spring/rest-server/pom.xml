@@ -10,11 +10,11 @@
 		<relativePath />
 	</parent>
 	<groupId>it.plainvalue.spring</groupId>
-	<artifactId>hello</artifactId>
+	<artifactId>rest-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>hello</name>
-	<description>Hello</description>
+	<name>rest-server</name>
+	<description>REST Server</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
