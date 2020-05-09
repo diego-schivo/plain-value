@@ -1,0 +1,5 @@
+- jdk1.8.0_251
+- eclipse-jee-2020-03
+- Import > Maven > Existing Maven Projects
+- Debug As > Maven build > Goals: spring-boot:run
+- npm run-script watch
