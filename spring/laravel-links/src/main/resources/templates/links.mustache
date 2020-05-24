@@ -1,0 +1,20 @@
+{{> header}}
+
+<h1>{{title}}</h1>
+
+<div class="links">
+
+	{{#links}}
+		<section>
+			<header class="link-header">
+				<h2 class="link-title"><a href="{{url}}">{{title}}</a></h2>
+				<div class="link-meta">on <strong>{{addedAt}}</strong></div>
+			</header>
+			<div class="link-headline">
+				{{description}}
+			</div>
+		</section>
+	{{/links}}
+</div>
+
+{{> footer}}
