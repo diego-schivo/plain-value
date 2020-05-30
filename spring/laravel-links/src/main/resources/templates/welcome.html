@@ -1,0 +1,10 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Links</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<a th:each="link : ${links}" th:href="${link.url}" th:text="${link.title}">[link title]</a>
+</body>
+</html>
